@@ -1,1 +1,0 @@
-C:\Users\Dimka\Desktop\bojo\Fundamentals\Advanced C#\5. Advanced-CSharp-Regular-Expressions\Popcorn\Popcorn\bin\Debug\Popcorn.exe.config
