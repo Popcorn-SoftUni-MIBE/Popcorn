@@ -34,37 +34,41 @@ namespace Popcorn
                 {
                     Console.WriteLine();
                 }
+                string instructionsText = "INSTRUCTIONS";
+                string newGame = "NEW GAME";
+                string highScore = "HIGH SCORE";
+                string quit = "QUIT";
                 switch (counter)
                 {
                     case 1:
-
-                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "*NEW GAME  "));
-                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "HIGH SCORE "));
-                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "INSTRUCTIONS"));
-                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "QUIT    ")); break;
+                        //String.Format("{0," + ((Console.WindowWidth / 2) + (textToEnter.Length / 2)) + "}", textToEnter)
+                        Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (newGame.Length / 2)) + "}", "*"+newGame ));
+                        Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (highScore.Length / 2)) + "}", highScore));
+                        Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (instructionsText.Length / 2)) + "}", instructionsText));
+                        Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (quit.Length / 2)) + "}", quit)); break;
                     case 2:
-                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "NEW GAME  "));
-                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "*HIGH SCORE "));
-                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "INSTRUCTIONS"));
-                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "QUIT    ")); break;
+                        Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (newGame.Length / 2)) + "}",  newGame));
+                        Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (highScore.Length / 2)) + "}","*"+ highScore));
+                        Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (instructionsText.Length / 2)) + "}", instructionsText));
+                        Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (quit.Length / 2)) + "}", quit)); break;
                     case 3:
 
-                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "NEW GAME  "));
-                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "HIGH SCORE "));
-                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "*INSTRUCTIONS"));
-                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "QUIT    ")); break;
+                        Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (newGame.Length / 2)) + "}", newGame));
+                        Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (highScore.Length / 2)) + "}", highScore));
+                        Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (instructionsText.Length / 2)) + "}", "*"+instructionsText));
+                        Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (quit.Length / 2)) + "}", quit)); break;
                     case 4:
 
-                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "NEW GAME  "));
-                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "HIGH SCORE "));
-                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "INSTRUCTIONS"));
-                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "*QUIT    ")); break;
+                        Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (newGame.Length / 2)) + "}", newGame));
+                        Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (highScore.Length / 2)) + "}", highScore));
+                        Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (instructionsText.Length / 2)) + "}", instructionsText));
+                        Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (quit.Length / 2)) + "}","*"+ quit)); break;
                     default:
                         counter = 1;
-                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "*NEW GAME  "));
-                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "HIGH SCORE "));
-                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "INSTRUCTIONS"));
-                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "QUIT    "));
+                        Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (newGame.Length / 2)) + "}", "*"+newGame ));
+                        Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (highScore.Length / 2)) + "}", highScore));
+                        Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (instructionsText.Length / 2)) + "}", instructionsText));
+                        Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (quit.Length / 2)) + "}", quit)); break;
                         break;
                 }
 
