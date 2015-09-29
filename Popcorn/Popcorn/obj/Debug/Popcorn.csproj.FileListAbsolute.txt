@@ -1,1 +1,2 @@
 C:\Users\Dimka\Desktop\bojo\Fundamentals\Adv C#- Team project\Popcorn\Popcorn\bin\Debug\Popcorn.exe.config
+C:\Users\Dimka\Desktop\bojo\Fundamentals\Adv C#- Team project\Popcorn\Popcorn\obj\Debug\Popcorn.csprojResolveAssemblyReference.cache

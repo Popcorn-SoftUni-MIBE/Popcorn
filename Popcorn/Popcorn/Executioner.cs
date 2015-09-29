@@ -10,6 +10,35 @@ namespace Popcorn
     {
         static void Main()
         {
+            DrawMenu();
+        }
+
+        private static void DrawMenu()
+        {
+            NewGame();
+            GetHighScore();
+            DrawControls();
+            Quit();
+        }
+
+        private static void Quit()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void DrawControls()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void GetHighScore()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void NewGame()
+        {
+            throw new NotImplementedException();
         }
     }
 }
