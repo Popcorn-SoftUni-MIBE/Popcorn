@@ -12,11 +12,69 @@ namespace Popcorn
         static void Main()
         {
             DrawMenu();
-
         }
 
         private static void DrawMenu()
         {
+            int counter = 1;
+
+            ConsoleKeyInfo enter = new ConsoleKeyInfo();
+
+            while (enter.Key != ConsoleKey.Enter)
+            {
+                if (enter.Key == ConsoleKey.DownArrow)
+                {
+                    counter++;
+                }
+                else if (enter.Key == ConsoleKey.UpArrow)
+                {
+                    counter--;
+                }
+                switch (counter)
+                {
+                    case 1:
+                        Console.WriteLine("*NEW GAME");
+                        Console.WriteLine("HIGH SCORE");
+                        Console.WriteLine("INSTRUCTIONS");
+                        Console.WriteLine("QUIT"); ; break;
+                    case 2:
+                        Console.WriteLine("NEW GAME");
+                        Console.WriteLine("*HIGH SCORE");
+                        Console.WriteLine("INSTRUCTIONS");
+                        Console.WriteLine("QUIT"); ; break;
+                    case 3:
+                        Console.WriteLine("NEW GAME");
+                        Console.WriteLine("HIGH SCORE");
+                        Console.WriteLine("*INSTRUCTIONS");
+                        Console.WriteLine("QUIT"); break;
+                    case 4:
+                        Console.WriteLine("NEW GAME");
+                        Console.WriteLine("HIGH SCORE");
+                        Console.WriteLine("INSTRUCTIONS");
+                        Console.WriteLine("*QUIT"); ; break;
+                    default:
+                        counter = 1;
+                        Console.WriteLine("*NEW GAME");
+                        Console.WriteLine("HIGH SCORE");
+                        Console.WriteLine("INSTRUCTIONS");
+                        Console.WriteLine("QUIT");
+                        break;
+                }
+
+
+                enter = Console.ReadKey();
+                Console.Clear();
+
+            }
+            switch (counter)
+            {
+                case 1: NewGame(); break;
+                case 2: GetHighScore(); break;
+                case 3: DrawControls(); break;
+                case 4: Quit(); break;
+                default:
+                    break;
+            }
             //   NewGame();
             GetHighScore();
             //    DrawControls();
@@ -47,7 +105,7 @@ namespace Popcorn
                 highScore.Add(score, name);
 
             }
-            Console.WriteLine("{0}HIGH SCORE",new string(' ',5));
+            Console.WriteLine("{0}HIGH SCORE", new string(' ', 5));
             Console.WriteLine("   {0}", new string('-', 15));
 
             foreach (var item in highScore.Reverse())
