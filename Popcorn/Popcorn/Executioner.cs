@@ -33,31 +33,51 @@ namespace Popcorn
                 switch (counter)
                 {
                     case 1:
-                        Console.WriteLine("*NEW GAME");
-                        Console.WriteLine("HIGH SCORE");
-                        Console.WriteLine("INSTRUCTIONS");
-                        Console.WriteLine("QUIT"); ; break;
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "*NEW GAME  "));
+                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "HIGH SCORE "));
+                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "INSTRUCTIONS"));
+                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "QUIT    ")); break;
                     case 2:
-                        Console.WriteLine("NEW GAME");
-                        Console.WriteLine("*HIGH SCORE");
-                        Console.WriteLine("INSTRUCTIONS");
-                        Console.WriteLine("QUIT"); ; break;
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "NEW GAME  "));
+                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "*HIGH SCORE "));
+                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "INSTRUCTIONS"));
+                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "QUIT    ")); break;
                     case 3:
-                        Console.WriteLine("NEW GAME");
-                        Console.WriteLine("HIGH SCORE");
-                        Console.WriteLine("*INSTRUCTIONS");
-                        Console.WriteLine("QUIT"); break;
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "NEW GAME  "));
+                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "HIGH SCORE "));
+                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "*INSTRUCTIONS"));
+                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "QUIT    ")); break;
                     case 4:
-                        Console.WriteLine("NEW GAME");
-                        Console.WriteLine("HIGH SCORE");
-                        Console.WriteLine("INSTRUCTIONS");
-                        Console.WriteLine("*QUIT"); ; break;
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "NEW GAME  "));
+                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "HIGH SCORE "));
+                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "INSTRUCTIONS"));
+                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "*QUIT    ")); break;
                     default:
                         counter = 1;
-                        Console.WriteLine("*NEW GAME");
-                        Console.WriteLine("HIGH SCORE");
-                        Console.WriteLine("INSTRUCTIONS");
-                        Console.WriteLine("QUIT");
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "*NEW GAME  "));
+                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "HIGH SCORE "));
+                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "INSTRUCTIONS"));
+                        Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "QUIT    "));
                         break;
                 }
 
@@ -75,10 +95,6 @@ namespace Popcorn
                 default:
                     break;
             }
-            //   NewGame();
-            GetHighScore();
-            //    DrawControls();
-            //  Quit();
         }
 
         private static void Quit()
@@ -105,18 +121,29 @@ namespace Popcorn
                 highScore.Add(score, name);
 
             }
-            Console.WriteLine("{0}HIGH SCORE", new string(' ', 5));
-            Console.WriteLine("   {0}", new string('-', 15));
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine(String.Format(" {0," + Console.WindowWidth / (2) + "}", "HIGH SCORE  "));
+
+            Console.WriteLine(String.Format("  {0," + Console.WindowWidth / 2 + "}", new string('-', 16)));
 
             foreach (var item in highScore.Reverse())
             {
-                Console.Write(" {0} |", counter);
-                Console.WriteLine("{0} {1}", item.Key, item.Value);
+                Console.Write(String.Format("{0," + Console.WindowWidth / 3 + "} | ", counter));
+                Console.WriteLine(String.Format("{0} {1}", item.Key, item.Value));
                 counter++;
-                if (counter >= 11)
+                if (counter >= 10)
                 {
                     break;
                 }
+            }
+            ConsoleKeyInfo enter = Console.ReadKey();
+
+            if (enter.Key == ConsoleKey.Enter)
+            {
+                Console.Clear();
+                DrawMenu();
             }
         }
 
