@@ -12,14 +12,15 @@ namespace Popcorn
         static void Main()
         {
             DrawMenu();
+
         }
 
         private static void DrawMenu()
         {
-            NewGame();
+            //   NewGame();
             GetHighScore();
-            DrawControls();
-            Quit();
+            //    DrawControls();
+            //  Quit();
         }
 
         private static void Quit()
@@ -34,19 +35,42 @@ namespace Popcorn
 
         private static void GetHighScore()
         {
+<<<<<<< HEAD
 
+=======
+            int counter = 1;
+>>>>>>> 1b1e5f4ebf782168032a1924a07df35cc0debba4
             SortedDictionary<int, string> highScore = new SortedDictionary<int, string>();
             string line;
             StreamReader file = new StreamReader(@"../../HighScore.txt");
             while ((line = file.ReadLine()) != null)
             {
                 string[] highScoreValues = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+<<<<<<< HEAD
                 string name = highScoreValues[0];
                 int score = int.Parse(highScoreValues[1]);
                 highScore.Add(score, name);
                 foreach (var item in highScore)
                 {
                     Console.WriteLine("{0} {1}", item.Key, item.Value);
+=======
+                string name = highScoreValues[1];
+                int score = int.Parse(highScoreValues[0]);
+                highScore.Add(score, name);
+
+            }
+            Console.WriteLine("{0}HIGH SCORE",new string(' ',5));
+            Console.WriteLine("   {0}", new string('-', 15));
+
+            foreach (var item in highScore.Reverse())
+            {
+                Console.Write(" {0} |", counter);
+                Console.WriteLine("{0} {1}", item.Key, item.Value);
+                counter++;
+                if (counter >= 11)
+                {
+                    break;
+>>>>>>> 1b1e5f4ebf782168032a1924a07df35cc0debba4
                 }
             }
         }

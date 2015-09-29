@@ -1,0 +1,12 @@
+2000 Misho
+20000 Bojidar
+1420 Evgeni
+200000 Ivan
+2002 Misho1
+20030 Bojidar2
+14204 Evgeni3
+2000050 Ivan4
+20034 Dragan100
+20003 Petkan200
+1233 Stoil
+123123 Petio
