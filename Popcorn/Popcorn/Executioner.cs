@@ -99,6 +99,7 @@ namespace Popcorn
 
         private static void Quit()
         {
+
             throw new NotImplementedException();
         }
 
@@ -109,7 +110,8 @@ namespace Popcorn
 
         private static void GetHighScore()
         {
-            int counter = 1;
+
+            int counter = 0;
             SortedDictionary<int, string> highScore = new SortedDictionary<int, string>();
             string line;
             StreamReader file = new StreamReader(@"../../HighScore.txt");
@@ -120,6 +122,7 @@ namespace Popcorn
                 int score = int.Parse(highScoreValues[0]);
                 highScore.Add(score, name);
 
+
             }
             Console.WriteLine();
             Console.WriteLine();
@@ -127,16 +130,16 @@ namespace Popcorn
             Console.WriteLine(String.Format(" {0," + Console.WindowWidth / (2) + "}", "HIGH SCORE  "));
 
             Console.WriteLine(String.Format("  {0," + Console.WindowWidth / 2 + "}", new string('-', 16)));
-
             foreach (var item in highScore.Reverse())
             {
+                counter++;
                 Console.Write(String.Format("{0," + Console.WindowWidth / 3 + "} | ", counter));
                 Console.WriteLine(String.Format("{0} {1}", item.Key, item.Value));
-                counter++;
                 if (counter >= 10)
                 {
                     break;
                 }
+
             }
             ConsoleKeyInfo enter = Console.ReadKey();
 
@@ -150,10 +153,54 @@ namespace Popcorn
         private static void NewGame()
         {
             string userName = GetUserName();
+            int score = PlayGame(0);
+            //Print score
+            bool replyForRetry = true;
+            //Ask for a retry
+            if (replyForRetry == true)
+            {
+                NewGame();
+            }
+            else
+            {
+                DrawMenu();
+            }
+        }
+
+        private static int PlayGame(int level)
+        {
+            //The method returns the score
+            int[,] matrix = LoadLevel(level);
+            int score = 0;
+            bool clearedAllBricks = false;
+            while (true)
+            {
+                //The main loop of the game
+                break;
+            }
+            if (clearedAllBricks)
+            {
+                score += PlayGame(level + 1);
+            }
+            return score;
+        }
+
+        private static int[,] LoadLevel(int level)
+        {
+            switch (level)
+            {
+                //Each case is a single level with bricks in a matrix
+                case 1:
+                    break;
+                    //Implement the levels in each case (matrix)
+            }
+            //Return the matrix with the bicks
+            return new int[1, 1];
         }
 
         private static string GetUserName()
         {
+            //Ask the user for the user name and check if it is valid
             throw new NotImplementedException();
         }
     }
