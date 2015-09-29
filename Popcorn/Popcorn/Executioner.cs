@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Popcorn
 {
@@ -33,7 +34,21 @@ namespace Popcorn
 
         private static void GetHighScore()
         {
-            throw new NotImplementedException();
+
+            SortedDictionary<int, string> highScore = new SortedDictionary<int, string>();
+            string line;
+            StreamReader file = new StreamReader(@"../../HighScore.txt");
+            while ((line = file.ReadLine()) != null)
+            {
+                string[] highScoreValues = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                string name = highScoreValues[0];
+                int score = int.Parse(highScoreValues[1]);
+                highScore.Add(score, name);
+                foreach (var item in highScore)
+                {
+                    Console.WriteLine("{0} {1}", item.Key, item.Value);
+                }
+            }
         }
 
         private static void NewGame()

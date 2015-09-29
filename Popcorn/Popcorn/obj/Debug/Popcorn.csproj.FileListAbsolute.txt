@@ -4,3 +4,6 @@ C:\Users\Dimka\Desktop\bojo\Fundamentals\Adv C#- Team project\Popcorn\Popcorn\bi
 C:\Users\Dimka\Desktop\bojo\Fundamentals\Adv C#- Team project\Popcorn\Popcorn\bin\Debug\Popcorn.pdb
 C:\Users\Dimka\Desktop\bojo\Fundamentals\Adv C#- Team project\Popcorn\Popcorn\obj\Debug\Popcorn.exe
 C:\Users\Dimka\Desktop\bojo\Fundamentals\Adv C#- Team project\Popcorn\Popcorn\obj\Debug\Popcorn.pdb
+C:\Users\mihai\Documents\GitHub\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.exe.config
+C:\Users\mihai\Documents\GitHub\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.exe
+C:\Users\mihai\Documents\GitHub\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.pdb
