@@ -41,9 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ball.cs" />
     <Compile Include="Board.cs" />
     <Compile Include="Brick.cs" />
     <Compile Include="Executioner.cs" />
+    <Compile Include="GameObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpecialBonusBrick.cs" />
   </ItemGroup>

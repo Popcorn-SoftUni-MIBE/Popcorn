@@ -7,11 +7,22 @@ using System.Threading.Tasks;
 namespace Popcorn
 {
    public class Brick
-    {
+   {
+       public const int STENGHT = 1;
+
         public int Size { get; set; }
         public int Row { get; set; }
         public int Col { get; set; }
-        public const int Strenght = 1;
-        public virtual int GetBonus();
+        
+        public virtual int GetBonus()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Brick(int row, int col) 
+        {
+            this.Row = row;
+            this.Col = col;
+        }
     }
 }

@@ -38,6 +38,11 @@ namespace Popcorn
 
         private static void NewGame()
         {
+            string userName = GetUserName();
+        }
+
+        private static string GetUserName()
+        {
             throw new NotImplementedException();
         }
     }

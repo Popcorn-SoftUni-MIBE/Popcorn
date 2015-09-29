@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace Popcorn
 {
-    public class Board : GameObject
+    public class Ball :GameObject
     {
-        public int Size { get; set; }
-
-        public Board(int row, int col, int size = 6) 
+        public Ball(int row, int col)
             :base(row, col)
         {
-            this.Size = size;
+        
         }
     }
 }
