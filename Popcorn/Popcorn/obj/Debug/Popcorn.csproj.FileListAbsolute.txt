@@ -7,3 +7,6 @@ C:\Users\Dimka\Desktop\bojo\Fundamentals\Adv C#- Team project\Popcorn\Popcorn\ob
 C:\Users\mihai\Documents\GitHub\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.exe.config
 C:\Users\mihai\Documents\GitHub\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.exe
 C:\Users\mihai\Documents\GitHub\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.pdb
+C:\Users\mihai\Documents\GitHub\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.exe
+C:\Users\mihai\Documents\GitHub\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.pdb
+C:\Users\mihai\Documents\GitHub\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.csprojResolveAssemblyReference.cache
