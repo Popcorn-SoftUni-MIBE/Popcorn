@@ -30,50 +30,37 @@ namespace Popcorn
                 {
                     counter--;
                 }
+                for (int i = 0; i < 4; i++)
+                {
+                    Console.WriteLine();
+                }
                 switch (counter)
                 {
                     case 1:
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
+
                         Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "*NEW GAME  "));
                         Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "HIGH SCORE "));
                         Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "INSTRUCTIONS"));
                         Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "QUIT    ")); break;
                     case 2:
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
                         Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "NEW GAME  "));
                         Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "*HIGH SCORE "));
                         Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "INSTRUCTIONS"));
                         Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "QUIT    ")); break;
                     case 3:
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
+
                         Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "NEW GAME  "));
                         Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "HIGH SCORE "));
                         Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "*INSTRUCTIONS"));
                         Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "QUIT    ")); break;
                     case 4:
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
+
                         Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "NEW GAME  "));
                         Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "HIGH SCORE "));
                         Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "INSTRUCTIONS"));
                         Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "*QUIT    ")); break;
                     default:
                         counter = 1;
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
                         Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "*NEW GAME  "));
                         Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "HIGH SCORE "));
                         Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "INSTRUCTIONS"));
@@ -124,9 +111,10 @@ namespace Popcorn
 
 
             }
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
+            for (int i = 0; i < 3; i++)
+            {
+                Console.WriteLine();
+            }
             Console.WriteLine(String.Format(" {0," + Console.WindowWidth / (2) + "}", "HIGH SCORE  "));
 
             Console.WriteLine(String.Format("  {0," + Console.WindowWidth / 2 + "}", new string('-', 16)));
