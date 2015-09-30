@@ -177,18 +177,42 @@ namespace Popcorn
             //The method returns the score
             GameObject[,] matrixOfBricks = LoadLevel(level);
             GameObject[,] matrixForGame = new GameObject[20, 12];
+            for (int row = 0; row < matrixOfBricks.GetLength(0); row++)
+            {
+                for (int col = 0; col < matrixOfBricks.GetLength(1); col++)
+                {
+                    matrixForGame[row, col] = matrixOfBricks[row, col];
+                }
+            }
+
             int score = 0;
             bool clearedAllBricks = false;
-            while (true)
-            {
-                //The main loop of the game
-                break;
-            }
-            if (clearedAllBricks)
-            {
-                score += PlayGame(level + 1);
-            }
-            return score;
+            Ball ball = new Ball(matrixForGame.GetLength(0) - 1, matrixForGame.GetLength(1) / 2);
+            ball.UpdateRow = -1;
+            ball.UpdateCol = 1;
+            int boardRow = matrixForGame.GetLength(0);
+            int boardCol = matrixForGame.GetLength(1) / 2;
+            Board board = new Board(boardRow, boardCol);
+            
+                while (true)
+                {
+
+                    PrintFrame();
+                    //Udate
+                    //Clear
+                    Console.Clear();
+                }
+                if (clearedAllBricks)
+                {
+                    score += PlayGame(level + 1);
+                }
+                return score;
+            
+        }
+
+        private static void PrintFrame()
+        {
+            throw new NotImplementedException();
         }
 
         private static GameObject[,] LoadLevel(int level)
@@ -197,12 +221,12 @@ namespace Popcorn
             {
                 //Each case is a single level with bricks in a matrix
                 case 1:
-                    GameObject[,] matrix = 
+                    GameObject[,] matrix =
                     {
-                    {new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick()},
-                    {new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick()},
-                    {new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick()},
-                    {new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick()}
+                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
+                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
+                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
+                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()}
                     };
                     return matrix;
                     //Implement the levels in each case (matrix)

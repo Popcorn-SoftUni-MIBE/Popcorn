@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Popcorn
 {
-    public abstract class GameObject
+    class Wall : GameObject, IIndestructableObject
     {
-
+        public char Symbol { get; set; }
     }
 }

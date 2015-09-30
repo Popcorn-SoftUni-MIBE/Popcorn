@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Popcorn
 {
-    public abstract class GameObject
+    interface IIndestructableObject
     {
 
     }
