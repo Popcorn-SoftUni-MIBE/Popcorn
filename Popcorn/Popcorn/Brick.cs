@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Popcorn
 {
-   public class Brick : GameObject
+   public class Brick : GameObject, IDestructableObject
    {
        public const int STENGHT = 1;
 
