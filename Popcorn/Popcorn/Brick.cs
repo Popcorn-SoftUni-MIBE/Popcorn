@@ -6,23 +6,18 @@ using System.Threading.Tasks;
 
 namespace Popcorn
 {
-    public class Brick
+    public class Brick : GameObject
     {
-        public const int STENGHT = 2;
+        public const int STENGHT = 1;
         public const char brick = '=';
+
         public int Size { get; set; }
-        public int Row { get; set; }
-        public int Col { get; set; }
 
         public virtual int GetBonus()
         {
             throw new NotImplementedException();
         }
-
-        public Brick(int row, int col)
-        {
-            this.Row = row;
-            this.Col = col;
-        }
     }
+
+
 }

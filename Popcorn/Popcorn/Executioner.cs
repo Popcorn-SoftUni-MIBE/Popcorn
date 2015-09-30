@@ -155,8 +155,9 @@ namespace Popcorn
 
         private static void NewGame()
         {
-            string userName = GetUserName();
-            int score = PlayGame(0);
+            //string userName = GetUserName();
+            string userName = "User";
+            int score = PlayGame(1);
             //Print score
             bool replyForRetry = true;
             //Ask for a retry
@@ -173,12 +174,19 @@ namespace Popcorn
         private static int PlayGame(int level)
         {
             //The method returns the score
-            int[,] matrix = LoadLevel(level);
+            GameObject[,] matrixOfBricks = LoadLevel(level);
+            GameObject[,] matrixForGame = new GameObject[20, 12];
             int score = 0;
             bool clearedAllBricks = false;
+            Ball ball = new Ball(matrixForGame.GetLength(0) - 1, matrixForGame.GetLength(1) / 2);
+            ball.UpdateRow = -1;
+            ball.UpdateCol = 1;
+            int boardRow = matrixForGame.GetLength(0);
+            int boardCol = matrixForGame.GetLength(1) / 2;
+            Board board = new Board(boardRow, boardCol);
             while (true)
             {
-                //The main loop of the game
+
                 break;
             }
             if (clearedAllBricks)
@@ -188,17 +196,25 @@ namespace Popcorn
             return score;
         }
 
-        private static int[,] LoadLevel(int level)
+        private static GameObject[,] LoadLevel(int level)
         {
             switch (level)
             {
                 //Each case is a single level with bricks in a matrix
                 case 1:
+                    GameObject[,] matrix =
+                    {
+                    {new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick()},
+                    {new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick()},
+                    {new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick()},
+                    {new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick()}
+                    };
+                    return matrix;
                     break;
                     //Implement the levels in each case (matrix)
             }
             //Return the matrix with the bicks
-            return new int[1, 1];
+            return new GameObject[0, 0];
         }
 
         private static string GetUserName()

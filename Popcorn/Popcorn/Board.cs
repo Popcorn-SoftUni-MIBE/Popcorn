@@ -10,9 +10,12 @@ namespace Popcorn
     {
         public int Size { get; set; }
         public const char board = '_';
+        public int Row { get; private set; }
+        public int Col { get; set; }
         public Board(int row, int col, int size = 6)
-            : base(row, col)
         {
+            this.Row = row;
+            this.Col = col;
             this.Size = size;
         }
     }

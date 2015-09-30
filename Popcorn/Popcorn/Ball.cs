@@ -9,11 +9,14 @@ namespace Popcorn
     public class Ball : GameObject
     {
         public const char ballSymbol = '@';
-
+        public int Row { get; set; }
+        public int Col { get; set; }
+        public int UpdateRow { get; set; }
+        public int UpdateCol { get; set; }
         public Ball(int row, int col)
-            : base(row, col)
         {
-
+            this.Row = row;
+            this.Col = col;
         }
     }
 }
