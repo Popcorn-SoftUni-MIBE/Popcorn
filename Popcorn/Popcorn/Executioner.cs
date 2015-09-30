@@ -176,18 +176,34 @@ namespace Popcorn
             //The method returns the score
             GameObject[,] matrixOfBricks = LoadLevel(level);
             GameObject[,] matrixForGame = new GameObject[20, 12];
+            for (int row = 0; row < matrixOfBricks.GetLength(0); row++)
+            {
+                for (int col = 0; col < matrixOfBricks.GetLength(1); col++)
+                {
+                    matrixForGame[row, col] = matrixOfBricks[row, col];
+                }
+            }
+
             int score = 0;
             bool clearedAllBricks = false;
+
             while (true)
             {
-                //The main loop of the game
-                break;
+                //Pint Frame 
+                PrintFrame();
+                //Udate
+                //Clear
             }
             if (clearedAllBricks)
             {
                 score += PlayGame(level + 1);
             }
             return score;
+        }
+
+        private static void PrintFrame()
+        {
+            throw new NotImplementedException();
         }
 
         private static GameObject[,] LoadLevel(int level)
