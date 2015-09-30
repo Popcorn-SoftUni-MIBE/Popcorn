@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Popcorn
 {
-    public class Board : GameObject
+    public class Board : GameObject, IIndestructableObject
     {
         public int Size { get; set; }
         public const char board = '_';

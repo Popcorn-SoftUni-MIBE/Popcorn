@@ -176,8 +176,17 @@ namespace Popcorn
             //The method returns the score
             GameObject[,] matrixOfBricks = LoadLevel(level);
             GameObject[,] matrixForGame = new GameObject[20, 12];
+            for (int row = 0; row < matrixOfBricks.GetLength(0); row++)
+            {
+                for (int col = 0; col < matrixOfBricks.GetLength(1); col++)
+                {
+                    matrixForGame[row, col] = matrixOfBricks[row, col];
+                }
+            }
+
             int score = 0;
             bool clearedAllBricks = false;
+<<<<<<< HEAD
             Ball ball = new Ball(matrixForGame.GetLength(0) - 1, matrixForGame.GetLength(1) / 2);
             ball.UpdateRow = -1;
             ball.UpdateCol = 1;
@@ -188,12 +197,27 @@ namespace Popcorn
             {
 
                 break;
+=======
+            
+            while (true)
+            {
+                
+                PrintFrame();
+                //Udate
+                //Clear
+                Console.Clear();
+>>>>>>> origin/master
             }
             if (clearedAllBricks)
             {
                 score += PlayGame(level + 1);
             }
             return score;
+        }
+
+        private static void PrintFrame()
+        {
+            throw new NotImplementedException();
         }
 
         private static GameObject[,] LoadLevel(int level)
@@ -204,10 +228,10 @@ namespace Popcorn
                 case 1:
                     GameObject[,] matrix =
                     {
-                    {new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick()},
-                    {new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick()},
-                    {new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick()},
-                    {new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick()}
+                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
+                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
+                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
+                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()}
                     };
                     return matrix;
                     break;
