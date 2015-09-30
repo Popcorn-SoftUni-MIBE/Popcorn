@@ -9,9 +9,9 @@ namespace Popcorn
     public class Board : GameObject
     {
         public int Size { get; set; }
-
-        public Board(int row, int col, int size = 6) 
-            :base(row, col)
+        public const char board = '_';
+        public Board(int row, int col, int size = 6)
+            : base(row, col)
         {
             this.Size = size;
         }

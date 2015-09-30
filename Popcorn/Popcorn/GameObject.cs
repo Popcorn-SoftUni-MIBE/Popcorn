@@ -12,7 +12,7 @@ namespace Popcorn
         public int Col { get; set; }
         public GameObject(int row, int col) 
         {
-        
+            
         }
     }
 }

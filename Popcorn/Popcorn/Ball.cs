@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace Popcorn
 {
-    public class Ball :GameObject
+    public class Ball : GameObject
     {
+        public const char ballSymbol = '@';
+
         public Ball(int row, int col)
-            :base(row, col)
+            : base(row, col)
         {
-        
+
         }
     }
 }
