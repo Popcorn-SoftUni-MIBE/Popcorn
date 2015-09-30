@@ -186,33 +186,27 @@ namespace Popcorn
 
             int score = 0;
             bool clearedAllBricks = false;
-<<<<<<< HEAD
             Ball ball = new Ball(matrixForGame.GetLength(0) - 1, matrixForGame.GetLength(1) / 2);
             ball.UpdateRow = -1;
             ball.UpdateCol = 1;
             int boardRow = matrixForGame.GetLength(0);
             int boardCol = matrixForGame.GetLength(1) / 2;
             Board board = new Board(boardRow, boardCol);
-            while (true)
-            {
-
-                break;
-=======
             
-            while (true)
-            {
-                
-                PrintFrame();
-                //Udate
-                //Clear
-                Console.Clear();
->>>>>>> origin/master
-            }
-            if (clearedAllBricks)
-            {
-                score += PlayGame(level + 1);
-            }
-            return score;
+                while (true)
+                {
+
+                    PrintFrame();
+                    //Udate
+                    //Clear
+                    Console.Clear();
+                }
+                if (clearedAllBricks)
+                {
+                    score += PlayGame(level + 1);
+                }
+                return score;
+            
         }
 
         private static void PrintFrame()
