@@ -174,16 +174,7 @@ namespace Popcorn
         private static int PlayGame(int level)
         {
             //The method returns the score
-            GameObject[,] matrixOfBricks = LoadLevel(level);
-            GameObject[,] matrixForGame = new GameObject[20, 12];
-            for (int row = 0; row < matrixOfBricks.GetLength(0); row++)
-            {
-                for (int col = 0; col < matrixOfBricks.GetLength(1); col++)
-                {
-                    matrixForGame[row, col] = matrixOfBricks[row, col];
-                }
-            }
-
+            GameObject[,] matrixForGame =  LoadLevel(level);
             int score = 0;
             bool clearedAllBricks = false;
             Ball ball = new Ball(matrixForGame.GetLength(0) - 1, matrixForGame.GetLength(1) / 2);

@@ -8,6 +8,10 @@ namespace Popcorn
 {
     public abstract class GameObject
     {
-
+        private char Symbol { get; set; }
+        public char GetCharOfObject()
+        {
+            return this.Symbol;
+        }
     }
 }

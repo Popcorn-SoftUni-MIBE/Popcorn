@@ -44,6 +44,7 @@
     <Compile Include="Ball.cs" />
     <Compile Include="Board.cs" />
     <Compile Include="Brick.cs" />
+    <Compile Include="Ceiling.cs" />
     <Compile Include="Executioner.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="IDestructableObject.cs" />

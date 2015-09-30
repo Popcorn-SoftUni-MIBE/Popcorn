@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Popcorn
 {
-    class Wall : GameObject, IIndestructableObject
+    class Ceiling : IIndestructableObject
     {
-        private const char symbolForPrinting = '-'; 
+
     }
 }
