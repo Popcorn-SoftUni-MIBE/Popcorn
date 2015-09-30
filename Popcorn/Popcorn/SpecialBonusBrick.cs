@@ -8,11 +8,6 @@ namespace Popcorn
 {
     public class SpecialBonusBrick: Brick
     {
-        public SpecialBonusBrick(int row, int col) 
-            :base(row, col)
-        {
-        
-        }
         public override int GetBonus()
         {
             throw new NotImplementedException();

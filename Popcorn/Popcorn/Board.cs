@@ -11,7 +11,7 @@ namespace Popcorn
         public int Size { get; set; }
 
         public Board(int row, int col, int size = 6) 
-            :base(row, col)
+            
         {
             this.Size = size;
         }

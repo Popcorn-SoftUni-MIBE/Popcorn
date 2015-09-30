@@ -9,7 +9,7 @@ namespace Popcorn
     public class Ball :GameObject
     {
         public Ball(int row, int col)
-            :base(row, col)
+            
         {
         
         }
