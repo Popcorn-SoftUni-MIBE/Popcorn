@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Popcorn
 {
@@ -155,8 +156,8 @@ namespace Popcorn
 
         private static void NewGame()
         {
-            //string userName = GetUserName();
-            string userName = "User";
+            string userName = GetUserName();
+            //string userName = "User";
             int score = PlayGame(1);
             //Print score
             bool replyForRetry = true;
@@ -219,7 +220,6 @@ namespace Popcorn
                     {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()}
                     };
                     return matrix;
-                    break;
                     //Implement the levels in each case (matrix)
             }
             //Return the matrix with the bicks
@@ -228,8 +228,36 @@ namespace Popcorn
 
         private static string GetUserName()
         {
-            //Ask the user for the user name and check if it is valid
-            throw new NotImplementedException();
+            //TO DO: If username is valid break while loop
+
+            string enterNameText = "Please enter your username: ";
+            string allowedCharsText = "Allowed characters: (A-Z a-z 0-9 _)";
+            string enterAgainText = "Incorrect username, please enter again";
+            string usernameIsAddedText = "Username is added";
+            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (enterNameText.Length / 2)) + "}", enterNameText);
+            Console.WriteLine("{0," + ((Console.WindowWidth/2) + (allowedCharsText.Length/2)) + "}", allowedCharsText);
+            Console.WriteLine();
+            while (true)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.CursorLeft = Console.WindowWidth / 3;
+                string username = Console.ReadLine();
+                Regex regex = new Regex("^(?!.*[_].*[_])[A-Za-z0-9_]{3,26}$");
+
+                if (regex.IsMatch(username))
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("{0," + ((Console.WindowWidth/2) + (usernameIsAddedText.Length/2)) + "}",
+                        usernameIsAddedText);
+                    return username;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("{0," + ((Console.WindowWidth/2) + (enterAgainText.Length/2)) + "}",
+                        enterAgainText);
+                }
+            }
         }
     }
 }
