@@ -189,24 +189,29 @@ namespace Popcorn
             {
                 PrintFrame(ball, matrixForGame, board);
                 Update(ball, matrixForGame, board);
-                ConsoleKeyInfo key = Console.ReadKey();
-                switch (key.Key)
+                Thread.Sleep(150);
+                if (Console.KeyAvailable)
                 {
+                    ConsoleKeyInfo key = Console.ReadKey();
+                    switch (key.Key)
+                    {
 
-                    case ConsoleKey.LeftArrow:
-                        if (board.Col - 1 > 1)
-                        {
-                            board.Col--;
-                        }
-                        break;
-                    case ConsoleKey.RightArrow:
-                        if (board.Col + board.Size < matrixForGame.GetLength(1))
-                        {
-                            board.Col++;
-                        }
-                        break;
+                        case ConsoleKey.LeftArrow:
+                            if (board.Col - 1 > 1)
+                            {
+                                board.Col--;
+                            }
+                            break;
+                        case ConsoleKey.RightArrow:
+                            if (board.Col + board.Size < matrixForGame.GetLength(1))
+                            {
+                                board.Col++;
+                            }
+                            break;
 
+                    }
                 }
+               
                 Console.Clear();
             }
             if (clearedAllBricks)
