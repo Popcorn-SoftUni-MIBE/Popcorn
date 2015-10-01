@@ -12,7 +12,7 @@ namespace Popcorn
         private const char symbol = '_';
         public int Row { get; private set; }
         public int Col { get; set; }
-        public Board(int row, int col, int size = 6)
+        public Board(int row, int col, int size = 3)
         {
             this.Row = row;
             this.Col = col;

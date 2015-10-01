@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
@@ -181,16 +182,31 @@ namespace Popcorn
             Ball ball = new Ball(matrixForGame.GetLength(0) - 1, matrixForGame.GetLength(1) / 2);
             ball.UpdateRow = -1;
             ball.UpdateCol = 1;
-            int boardRow = matrixForGame.GetLength(0);
+            int boardRow = matrixForGame.GetLength(0) - 1;
             int boardCol = matrixForGame.GetLength(1) / 2;
             Board board = new Board(boardRow, boardCol);
-
             while (true)
             {
+                PrintFrame(ball, matrixForGame, board);
+                Update(ball, matrixForGame, board);
+                ConsoleKeyInfo key = Console.ReadKey();
+                switch (key.Key)
+                {
 
-                PrintFrame();
-                //Udate
-                //Clear
+                    case ConsoleKey.LeftArrow:
+                        if (board.Col - 1 > 1)
+                        {
+                            board.Col--;
+                        }
+                        break;
+                    case ConsoleKey.RightArrow:
+                        if (board.Col + board.Size < matrixForGame.GetLength(1))
+                        {
+                            board.Col++;
+                        }
+                        break;
+
+                }
                 Console.Clear();
             }
             if (clearedAllBricks)
@@ -200,7 +216,34 @@ namespace Popcorn
             return score;
 
         }
+        private static void Update(Ball ball, GameObject[,] matrixForGame, Board board)
+        {
+            ball.Col += ball.UpdateCol;
+            ball.Row += ball.UpdateRow;
 
+            if (ball.Col >= matrixForGame.GetLength(1) - 1 || ball.Col <= 1)
+            {
+                ball.UpdateCol *= (-1);
+                ball.Col += ball.UpdateCol;
+            }
+            if (ball.Row <= 1)
+            {
+                ball.UpdateRow *= -1;
+                ball.Row += ball.UpdateRow;
+            }
+            if (matrixForGame[ball.Row, ball.Col] is IDestructableObject)
+            {
+                //TO DO.. Implement Destroy
+                (matrixForGame[ball.Row, ball.Col] as IDestructableObject).Destroy();
+                ball.UpdateRow *= -1;
+                ball.Row += ball.UpdateRow;
+            }
+            if (ball.Row == board.Row && (ball.Col >= board.Col && ball.Col <= board.Col + board.Size))
+            {
+                ball.UpdateRow *= -1;
+                ball.Row += ball.UpdateRow;
+            }
+        }
         private static void PrintFrame(Ball ball, GameObject[,] matrixForGame, Board board)
         {
             int currBallRow = ball.Row;
@@ -219,6 +262,11 @@ namespace Popcorn
                 }
                 Console.WriteLine();
             }
+            for (int i = 0; i < board.Size; i++)
+            {
+                matrixForGame[board.Row, board.Col + i] = new EmptyBlock();
+            }
+            matrixForGame[ball.Row, ball.Col] = new EmptyBlock();
 
         }
 
@@ -233,7 +281,13 @@ namespace Popcorn
                     {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
                     {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
                     {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
-                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()}
+                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
+                    {new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
+                    { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
+                    { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
+                    { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
+                    { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
+
                     };
                     return matrix;
                     //Implement the levels in each case (matrix)
@@ -265,6 +319,7 @@ namespace Popcorn
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (usernameIsAddedText.Length / 2)) + "}",
                         usernameIsAddedText);
+                    Console.Clear();
                     return username;
                 }
                 else
@@ -274,6 +329,7 @@ namespace Popcorn
                         enterAgainText);
                 }
             }
+
         }
     }
 }

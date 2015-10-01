@@ -25,7 +25,7 @@ namespace Popcorn
 
         public override char GetCharOfObject()
         {
-            throw new NotImplementedException();
+            return symbol;
         }
    }
 
