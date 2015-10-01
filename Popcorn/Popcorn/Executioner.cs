@@ -175,7 +175,7 @@ namespace Popcorn
         private static int PlayGame(int level)
         {
             //The method returns the score
-            GameObject[,] matrixForGame =  LoadLevel(level);
+            GameObject[,] matrixForGame = LoadLevel(level);
             int score = 0;
             bool clearedAllBricks = false;
             Ball ball = new Ball(matrixForGame.GetLength(0) - 1, matrixForGame.GetLength(1) / 2);
@@ -184,26 +184,42 @@ namespace Popcorn
             int boardRow = matrixForGame.GetLength(0);
             int boardCol = matrixForGame.GetLength(1) / 2;
             Board board = new Board(boardRow, boardCol);
-            
-                while (true)
-                {
 
-                    PrintFrame();
-                    //Udate
-                    //Clear
-                    Console.Clear();
-                }
-                if (clearedAllBricks)
-                {
-                    score += PlayGame(level + 1);
-                }
-                return score;
-            
+            while (true)
+            {
+
+                PrintFrame();
+                //Udate
+                //Clear
+                Console.Clear();
+            }
+            if (clearedAllBricks)
+            {
+                score += PlayGame(level + 1);
+            }
+            return score;
+
         }
 
-        private static void PrintFrame()
+        private static void PrintFrame(Ball ball, GameObject[,] matrixForGame, Board board)
         {
-            throw new NotImplementedException();
+            int currBallRow = ball.Row;
+            int currBallCol = ball.Col;
+            int currBoardRow = board.Row;
+            matrixForGame[currBallRow, currBallCol] = ball;
+            for (int i = 0; i < board.Size; i++)
+            {
+                matrixForGame[board.Row, board.Col + i] = board;
+            }
+            for (int rows = 0; rows < matrixForGame.GetLength(0); rows++)
+            {
+                for (int cols = 0; cols < matrixForGame.GetLength(1); cols++)
+                {
+                    Console.Write(matrixForGame[rows, cols].GetCharOfObject());
+                }
+                Console.WriteLine();
+            }
+
         }
 
         private static GameObject[,] LoadLevel(int level)
@@ -235,7 +251,7 @@ namespace Popcorn
             string enterAgainText = "Incorrect username, please enter again";
             string usernameIsAddedText = "Username is added";
             Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (enterNameText.Length / 2)) + "}", enterNameText);
-            Console.WriteLine("{0," + ((Console.WindowWidth/2) + (allowedCharsText.Length/2)) + "}", allowedCharsText);
+            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (allowedCharsText.Length / 2)) + "}", allowedCharsText);
             Console.WriteLine();
             while (true)
             {
@@ -247,14 +263,14 @@ namespace Popcorn
                 if (regex.IsMatch(username))
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("{0," + ((Console.WindowWidth/2) + (usernameIsAddedText.Length/2)) + "}",
+                    Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (usernameIsAddedText.Length / 2)) + "}",
                         usernameIsAddedText);
                     return username;
                 }
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("{0," + ((Console.WindowWidth/2) + (enterAgainText.Length/2)) + "}",
+                    Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (enterAgainText.Length / 2)) + "}",
                         enterAgainText);
                 }
             }
