@@ -275,10 +275,10 @@ namespace Popcorn
                 ball.UpdateRow *= -1;
                 ball.Row += ball.UpdateRow;
             }
-            if (matrixForGame[ball.Row, ball.Col] is IDestructableObject)
+            if (!(matrixForGame[ball.Row, ball.Col] is EmptyBlock))
             {
                 //TO DO.. Implement Destroy
-                // (matrixForGame[ball.Row, ball.Col] as IDestructableObject).Destroy();
+                matrixForGame[ball.Row, ball.Col] = new EmptyBlock();
                 ball.UpdateRow *= -1;
                 ball.Row += ball.UpdateRow;
             }
