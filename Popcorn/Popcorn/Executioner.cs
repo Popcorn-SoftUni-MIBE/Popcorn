@@ -189,7 +189,6 @@ namespace Popcorn
             {
                 PrintFrame(ball, matrixForGame, board);
                 Update(ball, matrixForGame, board);
-                Thread.Sleep(150);
                 if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo key = Console.ReadKey();
@@ -197,22 +196,21 @@ namespace Popcorn
                     {
 
                         case ConsoleKey.LeftArrow:
-                            if (board.Col - 1 > 1)
+                            if (board.Col >= 2)
                             {
                                 board.Col--;
                             }
                             break;
                         case ConsoleKey.RightArrow:
-                            if (board.Col + board.Size < matrixForGame.GetLength(1))
+                            if (board.Col + board.Size < matrixForGame.GetLength(1) - 1)
                             {
                                 board.Col++;
                             }
                             break;
-
                     }
                 }
-               
                 Console.Clear();
+
             }
             if (clearedAllBricks)
             {
@@ -225,7 +223,7 @@ namespace Popcorn
         {
             ball.Col += ball.UpdateCol;
             ball.Row += ball.UpdateRow;
-
+            Thread.Sleep(150);
             if (ball.Col >= matrixForGame.GetLength(1) - 1 || ball.Col <= 1)
             {
                 ball.UpdateCol *= (-1);
@@ -239,11 +237,11 @@ namespace Popcorn
             if (matrixForGame[ball.Row, ball.Col] is IDestructableObject)
             {
                 //TO DO.. Implement Destroy
-                (matrixForGame[ball.Row, ball.Col] as IDestructableObject).Destroy();
+                // (matrixForGame[ball.Row, ball.Col] as IDestructableObject).Destroy();
                 ball.UpdateRow *= -1;
                 ball.Row += ball.UpdateRow;
             }
-            if (ball.Row == board.Row && (ball.Col >= board.Col && ball.Col <= board.Col + board.Size))
+            if (ball.Row >= board.Row && (ball.Col >= board.Col && ball.Col <= board.Col + board.Size))
             {
                 ball.UpdateRow *= -1;
                 ball.Row += ball.UpdateRow;
@@ -285,8 +283,8 @@ namespace Popcorn
                     {
                     {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
                     {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
-                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
-                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
+                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new EmptyBlock(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
+                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new EmptyBlock(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
                     {new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
                     { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
                     { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },

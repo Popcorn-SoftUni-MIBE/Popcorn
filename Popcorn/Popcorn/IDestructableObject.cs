@@ -8,6 +8,6 @@ namespace Popcorn
 {
     interface IDestructableObject
     {
-         void Destroy();
+        void Destroy();
     }
 }

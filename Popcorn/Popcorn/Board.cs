@@ -9,7 +9,7 @@ namespace Popcorn
     public class Board : GameObject
     {
         public int Size { get; set; }
-        private const char symbol = '_';
+        private const char symbol = '^';
         public int Row { get; private set; }
         public int Col { get; set; }
         public Board(int row, int col, int size = 3)
