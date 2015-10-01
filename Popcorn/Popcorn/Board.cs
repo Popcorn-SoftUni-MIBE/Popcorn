@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Popcorn
 {
-    public class Board : GameObject, IIndestructableObject
+    public class Board : GameObject
     {
         public int Size { get; set; }
-        public const char board = '_';
+        private const char symbol = '_';
         public int Row { get; private set; }
         public int Col { get; set; }
         public Board(int row, int col, int size = 6)
@@ -17,6 +17,11 @@ namespace Popcorn
             this.Row = row;
             this.Col = col;
             this.Size = size;
+        }
+
+        public override char GetCharOfObject()
+        {
+            return symbol;
         }
     }
 }

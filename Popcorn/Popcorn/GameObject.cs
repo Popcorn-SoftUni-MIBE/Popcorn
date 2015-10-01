@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace Popcorn
 {
-    public abstract class GameObject
+    public abstract class GameObject 
     {
-        private char Symbol { get; set; }
-        public char GetCharOfObject()
-        {
-            return this.Symbol;
-        }
+        abstract public char GetCharOfObject();
     }
 }

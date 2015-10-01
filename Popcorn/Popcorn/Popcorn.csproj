@@ -45,10 +45,10 @@
     <Compile Include="Board.cs" />
     <Compile Include="Brick.cs" />
     <Compile Include="Ceiling.cs" />
+    <Compile Include="EmptyBlock.cs" />
     <Compile Include="Executioner.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="IDestructableObject.cs" />
-    <Compile Include="IIndestructableObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpecialBonusBrick.cs" />
     <Compile Include="Wall.cs" />

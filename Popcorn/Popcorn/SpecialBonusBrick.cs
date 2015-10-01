@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace Popcorn
 {
-    public class SpecialBonusBrick: Brick
+    public class SpecialBonusBrick : Brick
     {
-        public override int GetBonus()
+        private const char symbolForPrinting = '=';
+
+        public override char GetCharOfObject()
         {
-            throw new NotImplementedException();
+            return symbolForPrinting;
         }
     }
 }

@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace Popcorn
 {
-    class Ceiling: GameObject
+    class EmptyBlock : GameObject
     {
+        private const char symbolForPrinting = ' ';
 
         public override char GetCharOfObject()
         {
-            throw new NotImplementedException();
+            return symbolForPrinting;
         }
     }
 }

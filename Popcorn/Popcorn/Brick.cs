@@ -8,6 +8,7 @@ namespace Popcorn
 {
    public class Brick : GameObject, IDestructableObject
    {
+       private const char symbol = '#';
        public const int STENGHT = 1;
 
         public int Size { get; set; }
@@ -16,7 +17,17 @@ namespace Popcorn
         {
             throw new NotImplementedException();
         }
-    }
+
+        public void Destroy()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override char GetCharOfObject()
+        {
+            throw new NotImplementedException();
+        }
+   }
 
 
 }

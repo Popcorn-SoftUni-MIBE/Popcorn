@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace Popcorn
 {
-    class Wall : GameObject, IIndestructableObject
+    class Wall : GameObject
     {
-        private const char symbolForPrinting = '-'; 
+        private const char symbolForPrinting = '|';
+
+        public override char GetCharOfObject()
+        {
+            return symbolForPrinting;
+        }
     }
 }

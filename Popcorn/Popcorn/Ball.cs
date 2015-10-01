@@ -8,7 +8,7 @@ namespace Popcorn
 {
     public class Ball : GameObject
     {
-        public const char ballSymbol = '@';
+        public const char symbol = '@';
         public int Row { get; set; }
         public int Col { get; set; }
         public int UpdateRow { get; set; }
@@ -17,6 +17,11 @@ namespace Popcorn
         {
             this.Row = row;
             this.Col = col;
+        }
+
+        public override char GetCharOfObject()
+        {
+            return symbol;
         }
     }
 }
