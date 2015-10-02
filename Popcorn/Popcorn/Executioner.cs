@@ -109,7 +109,31 @@ namespace Popcorn
 
         private static void DrawControls()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < 4; i++)
+            {
+                Console.WriteLine();
+            }
+            string instrStr = "Instructions:";
+            string leftArrowKey = @"Left Arrow Key""<-"": Move pad to the left.";
+            string rightArrowKey = @"Right Arrow Key""->"": Move pad to the right.";
+            string pauseKey = @"Button ""P"": Pause the game.";
+            string quitKey = "Ctrl+C: Quit the game.";
+            string continueKey = @"Press ""Enter"" to return to main menu.";
+            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (instrStr.Length / 2)) + "}", instrStr);
+            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (leftArrowKey.Length / 2)) + "}", leftArrowKey);
+            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (rightArrowKey.Length / 2)) + "}", rightArrowKey);
+            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (pauseKey.Length / 2)) + "}", pauseKey);
+            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (quitKey.Length / 2)) + "}", quitKey);
+            Console.WriteLine();
+            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (continueKey.Length / 2)) + "}", continueKey);
+
+            ConsoleKeyInfo enter = Console.ReadKey();
+
+            if (enter.Key == ConsoleKey.Enter)
+            {
+                Console.Clear();
+                DrawMenu();
+            }
         }
 
         private static void GetHighScore()
@@ -208,6 +232,23 @@ namespace Popcorn
                                 board.Col++;
                             }
                             break;
+
+                            //PAUSE THE GAME
+                        case ConsoleKey.P:
+                            {
+                                while (true)
+                                {
+                                    ConsoleKeyInfo isPause = Console.ReadKey(true);
+                                    if (isPause.Key == ConsoleKey.P)
+                                    {
+                                        break;
+                                    }
+                                    else
+                                    Console.ReadKey(true);
+                                }
+                            }
+                            break;
+
                     }
 
                 }
@@ -236,10 +277,10 @@ namespace Popcorn
                 ball.UpdateRow *= -1;
                 ball.Row += ball.UpdateRow;
             }
-            if (matrixForGame[ball.Row, ball.Col] is IDestructableObject)
+            if (!(matrixForGame[ball.Row, ball.Col] is EmptyBlock))
             {
                 //TO DO.. Implement Destroy
-                // (matrixForGame[ball.Row, ball.Col] as IDestructableObject).Destroy();
+                matrixForGame[ball.Row, ball.Col] = new EmptyBlock();
                 ball.UpdateRow *= -1;
                 ball.Row += ball.UpdateRow;
             }
