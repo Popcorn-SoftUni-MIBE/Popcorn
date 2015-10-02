@@ -176,6 +176,7 @@ namespace Popcorn
         private static int PlayGame(int level)
         {
             //The method returns the score
+            int lives = 3;
             GameObject[,] matrixForGame = LoadLevel(level);
             int score = 0;
             bool clearedAllBricks = false;
@@ -187,8 +188,8 @@ namespace Popcorn
             Board board = new Board(boardRow, boardCol);
             while (true)
             {
-                PrintFrame(ball, matrixForGame, board);
-                Update(ball, matrixForGame, board);
+                PrintFrame(ball, matrixForGame, board,lives);
+                Update(ball, matrixForGame, board, lives);
                 if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo key = Console.ReadKey();
@@ -208,6 +209,7 @@ namespace Popcorn
                             }
                             break;
                     }
+
                 }
                 Console.Clear();
 
@@ -219,7 +221,7 @@ namespace Popcorn
             return score;
 
         }
-        private static void Update(Ball ball, GameObject[,] matrixForGame, Board board)
+        private static void Update(Ball ball, GameObject[,] matrixForGame, Board board, int lives)
         {
             ball.Col += ball.UpdateCol;
             ball.Row += ball.UpdateRow;
@@ -246,8 +248,14 @@ namespace Popcorn
                 ball.UpdateRow *= -1;
                 ball.Row += ball.UpdateRow;
             }
+            else
+            {
+                lives -= 1;
+                PlayGame(1);
+            }
+
         }
-        private static void PrintFrame(Ball ball, GameObject[,] matrixForGame, Board board)
+        private static void PrintFrame(Ball ball, GameObject[,] matrixForGame, Board board,int lives)
         {
             int currBallRow = ball.Row;
             int currBallCol = ball.Col;
@@ -261,7 +269,8 @@ namespace Popcorn
             {
                 for (int cols = 0; cols < matrixForGame.GetLength(1); cols++)
                 {
-                    Console.Write(matrixForGame[rows, cols].GetCharOfObject());
+                    Console.WriteLine("{0," + ((Console.WindowWidth / 2) + "}"), matrixForGame[rows, cols].GetCharOfObject());
+                    Console.WriteLine(lives);
                 }
                 Console.WriteLine();
             }
