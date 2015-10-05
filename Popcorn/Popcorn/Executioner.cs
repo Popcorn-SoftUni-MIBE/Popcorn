@@ -188,11 +188,13 @@ namespace Popcorn
             user = GetUserName();
 
             PlayGame(1);
-            //Print score
+            //TODO: Write a method to print the current score and after pressing enter, to clear
             bool replyForRetry = true;
-            //Ask for a retry
+            //TODO: Write a method to ask for retry 
             if (replyForRetry == true)
             {
+                lives = 3;
+                score = 0;
                 NewGame();
             }
             else
@@ -214,8 +216,8 @@ namespace Popcorn
             {
 
                 Console.Clear();
-                PrintFrame(ball, matrixForGame, board);
-                Update(ball, matrixForGame, board);
+                PrintFrame(ball, board);
+                Update(ball, board);
                 if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo key = Console.ReadKey();
@@ -267,7 +269,7 @@ namespace Popcorn
             }
 
         }
-        private static void Update(Ball ball, GameObject[,] matrixForGame, Board board)
+        private static void Update(Ball ball, Board board)
         {
             ball.Col += ball.UpdateCol;
             ball.Row += ball.UpdateRow;
@@ -331,7 +333,7 @@ namespace Popcorn
             }
 
         }
-        private static void PrintFrame(Ball ball, GameObject[,] matrixForGame, Board board)
+        private static void PrintFrame(Ball ball, Board board)
         {
             int currBallRow = ball.Row;
             int currBallCol = ball.Col;
@@ -374,6 +376,8 @@ namespace Popcorn
                     {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
                     {new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
                     { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
+                    { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
+                       { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
                     { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
                     { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
                     { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
