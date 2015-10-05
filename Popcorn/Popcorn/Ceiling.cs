@@ -10,6 +10,15 @@ namespace Popcorn
     {
         public const bool isDestroyable = false;
         private const char symbol = '-';
+
+        public override bool IsDestroyable
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         public override char GetCharOfObject()
         {
             return symbol;

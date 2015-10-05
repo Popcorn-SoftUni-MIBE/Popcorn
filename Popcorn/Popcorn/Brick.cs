@@ -6,21 +6,19 @@ using System.Threading.Tasks;
 
 namespace Popcorn
 {
-    public class Brick : GameObject, IDestroyable
+    public class Brick : GameObject
     {
         private const char symbol = '#';
         public const int STENGHT = 1;
-        public new const bool isDestroyable = true;
+        
         public int Size { get; set; }
 
-        public virtual int GetBonus()
+        public override bool IsDestroyable
         {
-            throw new NotImplementedException();
-        }
-
-        public void Destroy()
-        {
-            throw new NotImplementedException();
+            get
+            {
+                return true;
+            }
         }
 
         public override char GetCharOfObject()

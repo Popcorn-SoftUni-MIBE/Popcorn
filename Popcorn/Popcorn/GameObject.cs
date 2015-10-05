@@ -8,6 +8,7 @@ namespace Popcorn
 {
     public abstract class GameObject 
     {
+        public abstract bool IsDestroyable { get;}
         abstract public char GetCharOfObject();
     }
 }

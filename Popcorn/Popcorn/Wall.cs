@@ -10,6 +10,15 @@ namespace Popcorn
     {
         private const char symbolForPrinting = '|';
         public const bool isDestroyable = false;
+
+        public override bool IsDestroyable
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         public override char GetCharOfObject()
         {
             return symbolForPrinting;

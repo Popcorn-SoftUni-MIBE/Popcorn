@@ -13,6 +13,17 @@ namespace Popcorn
         public int Col { get; set; }
         public int UpdateRow { get; set; }
         public int UpdateCol { get; set; }
+
+        public override bool IsDestroyable
+        {
+            get
+            {
+                return false;
+            }
+
+            
+        }
+
         public Ball(int row, int col)
         {
             this.Row = row;

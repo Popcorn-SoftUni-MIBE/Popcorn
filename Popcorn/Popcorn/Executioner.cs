@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Windows;
 
 namespace Popcorn
 {
@@ -18,6 +19,7 @@ namespace Popcorn
         static string user;
         static void Main()
         {
+            Console.CursorVisible = false;
             DrawMenu();
         }
 
@@ -182,7 +184,7 @@ namespace Popcorn
                 DrawMenu();
             }
         }
-
+        
         private static void NewGame()
         {
             user = GetUserName();
@@ -255,6 +257,8 @@ namespace Popcorn
 
                     }
                 }
+               
+               
                 Thread.Sleep(150);
             }
 
@@ -280,6 +284,7 @@ namespace Popcorn
             {
                 ball.UpdateCol *= (-1);
                 ball.Col += ball.UpdateCol;
+                
             }
             #endregion
             //Colliding with ceiling 
@@ -288,11 +293,12 @@ namespace Popcorn
             {
                 ball.UpdateRow *= -1;
                 ball.Row += ball.UpdateRow;
+                
             }
             #endregion
             //Colliding with bricks
             #region
-            if (matrixForGame[ball.Row, ball.Col] is IDestroyable)
+            if (matrixForGame[ball.Row, ball.Col].IsDestroyable)
             {
                 //TO DO.. Implement Destroy
                 if (matrixForGame[ball.Row, ball.Col] is Brick)
@@ -308,6 +314,7 @@ namespace Popcorn
                 matrixForGame[ball.Row, ball.Col] = new EmptyBlock();
                 ball.UpdateRow *= -1;
                 ball.Row += ball.UpdateRow;
+                return;
             }
             #endregion
             //Colliding with board
@@ -316,6 +323,7 @@ namespace Popcorn
             {
                 ball.UpdateRow *= -1;
                 ball.Row += ball.UpdateRow;
+                
             }
             #endregion
             if (ball.Row >= matrixForGame.GetLength(0) - 1)
@@ -328,10 +336,8 @@ namespace Popcorn
                 board.Col = matrixForGame.GetLength(1) / 2 - board.Size / 2;
                 Console.Clear();
                 Thread.Sleep(1000);
-
-
             }
-
+            
         }
         private static void PrintFrame(Ball ball, Board board)
         {
@@ -368,8 +374,8 @@ namespace Popcorn
                 //Each case is a single level with bricks in a matrix
                 case 1:
                     GameObject[,] matrix =
-                    {
-                        { new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling()},
+                    {{ new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling()},
+                        { new Wall(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new Wall()},
                     {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
                     {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
                     //{new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
