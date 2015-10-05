@@ -48,7 +48,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>54E9257B82583881E51B195D03D2CBDCB6464CAA</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>CDEDB7E1EE46D6031C40B376B585F049A5426275</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>Popcorn_TemporaryKey.pfx</ManifestKeyFile>
@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Popcorn_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
