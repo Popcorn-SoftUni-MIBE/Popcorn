@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Popcorn
 {
-    public class Brick : GameObject, IDestructableObject
+    public class Brick : GameObject, IDestroyable
     {
         private const char symbol = '#';
         public const int STENGHT = 1;
-
+        public new const bool isDestroyable = true;
         public int Size { get; set; }
 
         public virtual int GetBonus()
@@ -28,6 +28,5 @@ namespace Popcorn
             return symbol;
         }
     }
-
 
 }

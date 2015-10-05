@@ -17,6 +17,8 @@ namespace Popcorn
         {
             this.Row = row;
             this.Col = col;
+            this.UpdateCol = 1;
+            this.UpdateRow = -1;
         }
 
         public override char GetCharOfObject()

@@ -12,6 +12,10 @@ namespace Popcorn
 {
     class Executioner
     {
+        static int lives = 3;
+        static GameObject[,] matrixForGame;
+        static int score = 0;
+        static string user;
         static void Main()
         {
             DrawMenu();
@@ -109,7 +113,31 @@ namespace Popcorn
 
         private static void DrawControls()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < 4; i++)
+            {
+                Console.WriteLine();
+            }
+            string instrStr = "Instructions:";
+            string leftArrowKey = @"Left Arrow Key""<-"": Move pad to the left.";
+            string rightArrowKey = @"Right Arrow Key""->"": Move pad to the right.";
+            string pauseKey = @"Button ""P"": Pause the game.";
+            string quitKey = "Ctrl+C: Quit the game.";
+            string continueKey = @"Press ""Enter"" to return to main menu.";
+            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (instrStr.Length / 2)) + "}", instrStr);
+            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (leftArrowKey.Length / 2)) + "}", leftArrowKey);
+            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (rightArrowKey.Length / 2)) + "}", rightArrowKey);
+            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (pauseKey.Length / 2)) + "}", pauseKey);
+            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (quitKey.Length / 2)) + "}", quitKey);
+            Console.WriteLine();
+            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (continueKey.Length / 2)) + "}", continueKey);
+
+            ConsoleKeyInfo enter = Console.ReadKey();
+
+            if (enter.Key == ConsoleKey.Enter)
+            {
+                Console.Clear();
+                DrawMenu();
+            }
         }
 
         private static void GetHighScore()
@@ -157,9 +185,9 @@ namespace Popcorn
 
         private static void NewGame()
         {
-            string userName = GetUserName();
-            //string userName = "User";
-            int score = PlayGame(1);
+            user = GetUserName();
+
+            PlayGame(1);
             //Print score
             bool replyForRetry = true;
             //Ask for a retry
@@ -173,23 +201,21 @@ namespace Popcorn
             }
         }
 
-        private static int PlayGame(int level)
+        private static void PlayGame(int level)
         {
             //The method returns the score
-            int lives = 3;
-            GameObject[,] matrixForGame = LoadLevel(level);
-            int score = 0;
+            matrixForGame = LoadLevel(level);
             bool clearedAllBricks = false;
             Ball ball = new Ball(matrixForGame.GetLength(0) - 1, matrixForGame.GetLength(1) / 2);
-            ball.UpdateRow = -1;
-            ball.UpdateCol = 1;
             int boardRow = matrixForGame.GetLength(0) - 1;
             int boardCol = matrixForGame.GetLength(1) / 2;
             Board board = new Board(boardRow, boardCol);
-            while (true)
+            while (lives > 0)
             {
-                PrintFrame(ball, matrixForGame, board,lives);
-                Update(ball, matrixForGame, board, lives);
+
+                Console.Clear();
+                PrintFrame(ball, matrixForGame, board);
+                Update(ball, matrixForGame, board);
                 if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo key = Console.ReadKey();
@@ -208,54 +234,104 @@ namespace Popcorn
                                 board.Col++;
                             }
                             break;
+
+                        //PAUSE THE GAME
+                        case ConsoleKey.P:
+                            {
+                                while (true)
+                                {
+                                    ConsoleKeyInfo isPause = Console.ReadKey(true);
+                                    if (isPause.Key == ConsoleKey.P)
+                                    {
+                                        break;
+                                    }
+                                    else
+                                        Console.ReadKey(true);
+                                }
+                            }
+                            break;
+
                     }
-
                 }
-                Console.Clear();
+                Thread.Sleep(150);
+            }
 
+            using (StreamWriter sr = new StreamWriter(@"..\..\HighScore.txt"))
+            {
+                sr.WriteLine(score + " " + user);
+               
             }
             if (clearedAllBricks)
             {
-                score += PlayGame(level + 1);
+                PlayGame(level + 1);
             }
-            return score;
 
         }
-        private static void Update(Ball ball, GameObject[,] matrixForGame, Board board, int lives)
+        private static void Update(Ball ball, GameObject[,] matrixForGame, Board board)
         {
             ball.Col += ball.UpdateCol;
             ball.Row += ball.UpdateRow;
-            Thread.Sleep(150);
-            if (ball.Col >= matrixForGame.GetLength(1) - 1 || ball.Col <= 1)
+
+            //Colliding with left or right wall 
+            #region
+            if (ball.Col >= matrixForGame.GetLength(1) - 1 || ball.Col <= 0)
             {
                 ball.UpdateCol *= (-1);
                 ball.Col += ball.UpdateCol;
             }
-            if (ball.Row <= 1)
+            #endregion
+            //Colliding with ceiling 
+            #region
+            if (ball.Row < 1)
             {
                 ball.UpdateRow *= -1;
                 ball.Row += ball.UpdateRow;
             }
-            if (!(matrixForGame[ball.Row, ball.Col] is EmptyBlock))
+            #endregion
+            //Colliding with bricks
+            #region
+            if (matrixForGame[ball.Row, ball.Col] is IDestroyable)
             {
                 //TO DO.. Implement Destroy
+                if (matrixForGame[ball.Row, ball.Col] is Brick)
+                {
+                    score += 5;
+                }
+                if (matrixForGame[ball.Row, ball.Col] is SpecialBonusBrick)
+                {
+                    score += 10;
+                }
+
+
                 matrixForGame[ball.Row, ball.Col] = new EmptyBlock();
                 ball.UpdateRow *= -1;
                 ball.Row += ball.UpdateRow;
             }
+            #endregion
+            //Colliding with board
+            #region
             if (ball.Row >= board.Row && (ball.Col >= board.Col && ball.Col <= board.Col + board.Size))
             {
                 ball.UpdateRow *= -1;
                 ball.Row += ball.UpdateRow;
             }
-            else
+            #endregion
+            if (ball.Row >= matrixForGame.GetLength(0) - 1)
             {
-                lives -= 1;
-                PlayGame(1);
+                lives--;
+                ball.Row = matrixForGame.GetLength(0) - 1;
+                ball.Col = matrixForGame.GetLength(1) / 2;
+                ball.UpdateRow = -1;
+                ball.UpdateCol = -1;
+                board.Col = matrixForGame.GetLength(1) / 2 - board.Size / 2;
+                Console.Clear();
+                Thread.Sleep(1000);
+
+
             }
 
         }
-        private static void PrintFrame(Ball ball, GameObject[,] matrixForGame, Board board,int lives)
+        private static void PrintFrame(Ball ball, GameObject[,] matrixForGame, Board board)
         {
             int currBallRow = ball.Row;
             int currBallCol = ball.Col;
@@ -269,11 +345,12 @@ namespace Popcorn
             {
                 for (int cols = 0; cols < matrixForGame.GetLength(1); cols++)
                 {
-                    Console.WriteLine("{0," + ((Console.WindowWidth / 2) + "}"), matrixForGame[rows, cols].GetCharOfObject());
-                    Console.WriteLine(lives);
+                    Console.Write(" {0} ", matrixForGame[rows, cols].GetCharOfObject());
                 }
                 Console.WriteLine();
             }
+            Console.WriteLine("Score: {0}", score);
+            Console.WriteLine("Lives: {0}", lives);
             for (int i = 0; i < board.Size; i++)
             {
                 matrixForGame[board.Row, board.Col + i] = new EmptyBlock();
@@ -290,10 +367,11 @@ namespace Popcorn
                 case 1:
                     GameObject[,] matrix =
                     {
+                        { new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling()},
                     {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
                     {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
-                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new EmptyBlock(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
-                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new EmptyBlock(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
+                    //{new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
+                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
                     {new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
                     { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
                     { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
@@ -323,7 +401,12 @@ namespace Popcorn
             {
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.CursorLeft = Console.WindowWidth / 3;
-                string username = Console.ReadLine();
+                string username = Console.ReadLine().ToLower();
+                if (username == "menu")
+                {
+                    Console.Clear();
+                    Main();
+                }
                 Regex regex = new Regex("^(?!.*[_].*[_])[A-Za-z0-9_]{3,26}$");
 
                 if (regex.IsMatch(username))

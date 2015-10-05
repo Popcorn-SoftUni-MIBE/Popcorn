@@ -8,10 +8,11 @@ namespace Popcorn
 {
     class Ceiling: GameObject
     {
-
+        public const bool isDestroyable = false;
+        private const char symbol = '-';
         public override char GetCharOfObject()
         {
-            throw new NotImplementedException();
+            return symbol;
         }
     }
 }
