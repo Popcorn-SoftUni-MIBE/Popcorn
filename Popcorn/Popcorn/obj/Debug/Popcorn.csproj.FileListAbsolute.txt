@@ -35,3 +35,6 @@ C:\Users\Evgeni\Documents\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.exe
 C:\Users\Evgeni\Documents\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.pdb
 C:\Users\Evgeni\Documents\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.exe.manifest
 C:\Users\Evgeni\Documents\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.application
+C:\TEAMWORK\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.exe.config
+C:\TEAMWORK\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.exe
+C:\TEAMWORK\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.pdb
