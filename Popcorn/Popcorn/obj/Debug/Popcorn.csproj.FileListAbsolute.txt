@@ -25,3 +25,13 @@ C:\Users\mihai\Documents\GitHub\Game\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.p
 C:\Users\mihai\Documents\GitHub\Game\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.exe
 C:\Users\mihai\Documents\GitHub\Game\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.pdb
 C:\Users\mihai\Documents\GitHub\Game\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.csprojResolveAssemblyReference.cache
+C:\Users\Evgeni\Documents\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.csprojResolveAssemblyReference.cache
+C:\Users\Evgeni\Documents\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.exe
+C:\Users\Evgeni\Documents\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.pdb
+C:\Users\Evgeni\Documents\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.exe.config
+C:\Users\Evgeni\Documents\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.exe.manifest
+C:\Users\Evgeni\Documents\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.application
+C:\Users\Evgeni\Documents\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.exe
+C:\Users\Evgeni\Documents\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.pdb
+C:\Users\Evgeni\Documents\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.exe.manifest
+C:\Users\Evgeni\Documents\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.application

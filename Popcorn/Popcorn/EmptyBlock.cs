@@ -8,6 +8,7 @@ namespace Popcorn
 {
     class EmptyBlock : GameObject
     {
+        public const bool isDestroyable = false;
         private const char symbolForPrinting = ' ';
 
         public override char GetCharOfObject()

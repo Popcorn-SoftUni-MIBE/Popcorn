@@ -8,11 +8,12 @@ namespace Popcorn
 {
     public class Board : GameObject
     {
+        public const bool isDestroyable = false;
         public int Size { get; set; }
-        private const char symbol = '^';
+        private const char symbol = '*';
         public int Row { get; private set; }
         public int Col { get; set; }
-        public Board(int row, int col, int size = 3)
+        public Board(int row, int col, int size = 4)
         {
             this.Row = row;
             this.Col = col;

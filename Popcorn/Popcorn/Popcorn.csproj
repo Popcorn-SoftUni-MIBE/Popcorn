@@ -22,8 +22,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -49,7 +48,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>A5C46949A46C9A8200944D3FDDD739646E8D7461</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>CDEDB7E1EE46D6031C40B376B585F049A5426275</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>Popcorn_TemporaryKey.pfx</ManifestKeyFile>
@@ -77,13 +76,14 @@
     <Compile Include="EmptyBlock.cs" />
     <Compile Include="Executioner.cs" />
     <Compile Include="GameObject.cs" />
-    <Compile Include="IDestructableObject.cs" />
+    <Compile Include="IDestroyable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpecialBonusBrick.cs" />
     <Compile Include="Wall.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Popcorn_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
