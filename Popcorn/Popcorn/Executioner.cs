@@ -314,14 +314,14 @@ namespace Popcorn
                 //TO DO.. Implement Destroy
                 if (matrixForGame[ball.Row, ball.Col] is Brick)
                 {
+                    Console.Beep(3000,200);
                     score += 5;
                 }
                 if (matrixForGame[ball.Row, ball.Col] is SpecialBonusBrick)
                 {
+                    Console.Beep(3000, 300);
                     score += 10;
                 }
-
-
                 matrixForGame[ball.Row, ball.Col] = new EmptyBlock();
                 ball.UpdateRow *= -1;
                 ball.Row += ball.UpdateRow;
@@ -340,6 +340,8 @@ namespace Popcorn
             if (ball.Row >= matrixForGame.GetLength(0) - 1)
             {
                 lives--;
+                Console.Beep(658, 1250); 
+
                 ball.Row = matrixForGame.GetLength(0) - 1;
                 ball.Col = matrixForGame.GetLength(1) / 2;
                 ball.UpdateRow = -1;
