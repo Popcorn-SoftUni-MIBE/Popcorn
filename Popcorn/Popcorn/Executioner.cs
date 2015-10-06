@@ -13,7 +13,7 @@ namespace Popcorn
 {
     class Executioner
     {
-        static int lives = 3;
+        static int lives = 1;
         static GameObject[,] matrixForGame;
         static int score = 0;
         static string user;
@@ -72,11 +72,26 @@ namespace Popcorn
                         Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (instructionsText.Length / 2)) + "}", instructionsText);
                         Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (quit.Length / 2)) + "}", "-> " + quit); break;
                     default:
-                        counter = 1;
-                        Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (newGame.Length / 2)) + "}", "-> " + newGame);
-                        Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (highScore.Length / 2)) + "}", highScore);
-                        Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (instructionsText.Length / 2)) + "}", instructionsText);
-                        Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (quit.Length / 2)) + "}", quit); break;
+                        if (counter==5)
+                        {
+                            counter = 1;
+                            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (newGame.Length / 2)) + "}", "-> " + newGame);
+                            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (highScore.Length / 2)) + "}", highScore);
+                            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (instructionsText.Length / 2)) + "}", instructionsText);
+                            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (quit.Length / 2)) + "}", quit); 
+                        }
+                        else if (counter==0)
+                        {
+                            counter = 4;
+                            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (newGame.Length / 2)) + "}",  newGame);
+                            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (highScore.Length / 2)) + "}", highScore);
+                            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (instructionsText.Length / 2)) + "}", instructionsText);
+                            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (quit.Length / 2)) + "}", "-> " + quit);
+                        }
+                        {
+                            
+                        }
+                        break;
                 }
 
 
@@ -158,7 +173,6 @@ namespace Popcorn
 
         private static void GetHighScore()
         {
-
             int counter = 0;
             SortedDictionary<int, string> highScore = new SortedDictionary<int, string>();
             string line;
@@ -199,20 +213,37 @@ namespace Popcorn
         private static void NewGame()
         {
             user = GetUserName();
-
-            PlayGame(1);
             //TODO: Write a method to print the current score and after pressing enter, to clear
-            bool replyForRetry = true;
-            //TODO: Write a method to ask for retry 
-            if (replyForRetry == true)
+            PlayGame(1);
+        }
+
+        private static void AskRetry()
+        {
+            GameTitle();
+            string retryQ = "Do you want to retry? Y/N";
+            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (retryQ.Length / 2)) + "}", retryQ);
+            while (true)
             {
-                lives = 3;
-                score = 0;
-                NewGame();
-            }
-            else
-            {
-                DrawMenu();
+                ConsoleKeyInfo key = Console.ReadKey(true);
+                if (key.Key == ConsoleKey.Y)
+                {
+                    lives = 3;
+                    score = 0;
+                    Console.Clear();
+                    NewGame();
+                    break;
+                }
+                else if (key.Key == ConsoleKey.N)
+                {
+                    Console.Clear();
+                    DrawMenu();
+                }
+                else
+                {
+                    Console.Clear();
+                    GameTitle();
+                    Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (retryQ.Length / 2)) + "}", retryQ);
+                }
             }
         }
 
@@ -225,9 +256,13 @@ namespace Popcorn
             int boardRow = matrixForGame.GetLength(0) - 1;
             int boardCol = matrixForGame.GetLength(1) / 2;
             Board board = new Board(boardRow, boardCol);
-            while (lives > 0)
+            while (true)
             {
-
+                if (lives<1)
+                {
+                    lives = 3;
+                    AskRetry();
+                }
                 Console.Clear();
                 PrintFrame(ball, board);
                 Update(ball, board);
@@ -249,8 +284,7 @@ namespace Popcorn
                                 board.Col++;
                             }
                             break;
-
-                        //PAUSE THE GAME
+                            
                         case ConsoleKey.P:
                             {
                                 while (true)
@@ -265,12 +299,9 @@ namespace Popcorn
                                 }
                             }
                             break;
-
                     }
                 }
-               
-               
-                Thread.Sleep(150);
+               Thread.Sleep(150);
             }
 
             using (StreamWriter sr = new StreamWriter(@"..\..\HighScore.txt"))
