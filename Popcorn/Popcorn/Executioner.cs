@@ -39,10 +39,8 @@ namespace Popcorn
                 {
                     counter--;
                 }
-                for (int i = 0; i < 4; i++)
-                {
-                    Console.WriteLine();
-                }
+                
+                GameTitle();
                 string instructionsText = "INSTRUCTIONS";
                 string newGame = "NEW GAME";
                 string highScore = "HIGH SCORE";
@@ -50,23 +48,25 @@ namespace Popcorn
                 switch (counter)
                 {
                     case 1:
+                        Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (newGame.Length / 2)) + "}", "-> " + newGame);
                         Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (highScore.Length / 2)) + "}", highScore);
                         Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (instructionsText.Length / 2)) + "}", instructionsText);
                         Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (quit.Length / 2)) + "}", quit); break;
                     case 2:
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (newGame.Length / 2)) + "}", newGame);
                         Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (highScore.Length / 2)) + "}", "-> " + highScore);
                         Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (instructionsText.Length / 2)) + "}", instructionsText);
                         Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (quit.Length / 2)) + "}", quit); break;
                     case 3:
-
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (newGame.Length / 2)) + "}", newGame);
                         Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (highScore.Length / 2)) + "}", highScore);
                         Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (instructionsText.Length / 2)) + "}", "-> " + instructionsText);
                         Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (quit.Length / 2)) + "}", quit); break;
                     case 4:
-
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (newGame.Length / 2)) + "}", newGame);
                         Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (highScore.Length / 2)) + "}", highScore);
                         Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (instructionsText.Length / 2)) + "}", instructionsText);
@@ -95,8 +95,9 @@ namespace Popcorn
 
         private static void Quit()
         {
+           
             string quitQuestionStr = "Are you sure you want to quit? Y/N?";
-            Console.Clear();
+            GameTitle();
             Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (quitQuestionStr.Length / 2)) + "}", quitQuestionStr);
             while (true)
             {
@@ -113,12 +114,25 @@ namespace Popcorn
             }
         }
 
+        private static void GameTitle()
+        {
+            string titleOfTheGame = @"           ______  ______  ______  ______  ______  ______    __      _  
+          |  __  ||  __  ||  __  ||  ____||  __  ||  __  \  |  \    | |
+          | |__| || |  | || |__| || |     | |  | || |__| |  | ^ \   | |
+          |  ____|| |  | ||  ____|| |     | |  | ||  _  _/  | |\ \  | |
+          | |     | |  | || |     | |     | |  | || | \ \   | | \ \ | |
+          | |     | |  | || |     | |     | |  | || |  \ \  | |  \ \| |
+          | |     | |__| || |     | |____ | |__| || |   \ \ | |   \ V |
+          |_|     |______||_|     |______||______||_|    \_\|_|    \__|";
+            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (titleOfTheGame.Length / 2)) + "}", titleOfTheGame);
+            Console.WriteLine();
+            Console.WriteLine();
+
+        }
         private static void DrawControls()
         {
-            for (int i = 0; i < 4; i++)
-            {
-                Console.WriteLine();
-            }
+            
+            GameTitle();
             string instrStr = "Instructions:";
             string leftArrowKey = @"Left Arrow Key""<-"": Move pad to the left.";
             string rightArrowKey = @"Right Arrow Key""->"": Move pad to the right.";
@@ -156,10 +170,7 @@ namespace Popcorn
                 int score = int.Parse(highScoreValues[0]);
                 highScore.Add(score, name);
             }
-            for (int i = 0; i < 3; i++)
-            {
-                Console.WriteLine();
-            }
+            GameTitle();
             string highScoreStr = "HIGH SCORE";
             string highScoreDelimiter = new string('-', 22);
             Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (highScoreStr.Length / 2)) + "}", highScoreStr);
@@ -398,8 +409,7 @@ namespace Popcorn
 
         private static string GetUserName()
         {
-            //TO DO: If username is valid break while loop
-
+            GameTitle();
             string enterNameText = "Please enter your username: ";
             string allowedCharsText = "Allowed characters: (A-Z a-z 0-9 _)";
             string enterAgainText = "Incorrect username, please enter again";
