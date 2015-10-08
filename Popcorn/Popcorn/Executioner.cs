@@ -17,14 +17,14 @@ namespace Popcorn
         static GameObject[,] matrixForGame;
         static readonly int MAX_BALL_BOARD_HITS_BEFORE_BRICKS_DOWN = 7;
         static int score = 0;
-        static int ballBoardHits = 0;   
+        static int ballBoardHits = 0;
         static string user;
         static void Main()
         {
             Console.CursorVisible = false;
             DrawMenu();
         }
-        
+
 
         private static void DrawMenu()
         {
@@ -125,24 +125,6 @@ namespace Popcorn
             PlayGame(1);
         }
 
-        private static void BackToMenu()
-        {
-            ConsoleKeyInfo enter = Console.ReadKey();
-
-            if (enter.Key == ConsoleKey.Enter)
-            {
-                Console.Clear();
-                Console.Beep(4000, 200);
-                DrawMenu();
-            }
-            else if (enter.Key == ConsoleKey.Enter)
-            {
-                Console.Clear();
-                Console.Beep(4000, 200);
-                DrawMenu();
-            }
-        }
-
         private static string GetUserName()
         {
             GameTitle();
@@ -195,9 +177,9 @@ namespace Popcorn
             {
                 if (ballBoardHits >= MAX_BALL_BOARD_HITS_BEFORE_BRICKS_DOWN)
                 {
-                    for (int row = matrixForGame.GetLength(0)-1; row > 1; row--)
+                    for (int row = matrixForGame.GetLength(0) - 1; row > 1; row--)
                     {
-                        for (int col = 1; col < matrixForGame.GetLength(1)-1; col++)
+                        for (int col = 1; col < matrixForGame.GetLength(1) - 1; col++)
                         {
                             matrixForGame[row, col] = matrixForGame[row - 1, col];
                         }
@@ -567,11 +549,11 @@ namespace Popcorn
             {
                 for (int cols = 0; cols < matrixForGame.GetLength(1); cols++)
                 {
-                    Console.Write(" {0} ", matrixForGame[rows, cols].GetCharOfObject());
+                    Console.Write("  {0}  ", matrixForGame[rows, cols].GetCharOfObject());
                 }
                 Console.WriteLine();
             }
-            Console.WriteLine("  --------------------------------------------------------");
+            Console.WriteLine(new string('-', matrixForGame.GetLength(0)*5));
             Console.WriteLine("    {0," + ((Console.WindowWidth / 2)) + "}", "Hello " + user + ", Good Luck! :)");
 
             Console.WriteLine(@"                  _________________________
@@ -602,7 +584,7 @@ namespace Popcorn
                     lives = 3;
                     score = 0;
                     Console.Clear();
-                    NewGame();
+                    Environment.Exit(0);
                     break;
                 }
                 else if (key.Key == ConsoleKey.N)
@@ -623,6 +605,6 @@ namespace Popcorn
                 }
             }
         }
-        }
     }
+}
 
