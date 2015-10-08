@@ -107,28 +107,147 @@ namespace Popcorn
                 case 4: Quit(); break;
             }
         }
-
-        private static void Quit()
+        private static void NewGame()
         {
-           
-            string quitQuestionStr = "Are you sure you want to quit? Y/N?";
+            user = GetUserName();
+            //TODO: Write a method to print the current score and after pressing enter, to clear
+            PlayGame(1);
+        }
+        private static string GetUserName()
+        {
             GameTitle();
-            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (quitQuestionStr.Length / 2)) + "}", quitQuestionStr);
+            string enterNameText = "Please enter your username: ";
+            string allowedCharsText = "Allowed characters: (A-Z a-z 0-9 _)";
+            string enterAgainText = "Incorrect username, please enter again";
+            string usernameIsAddedText = "Username is added";
+            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (enterNameText.Length / 2)) + "}", enterNameText);
+            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (allowedCharsText.Length / 2)) + "}", allowedCharsText);
+            Console.WriteLine();
             while (true)
             {
-                ConsoleKeyInfo result = Console.ReadKey(true);
-                if ((result.KeyChar == 'Y') || (result.KeyChar == 'y'))
-                {
-                    Process.GetCurrentProcess().Kill();
-                }
-                else if ((result.KeyChar == 'N') || (result.KeyChar == 'n'))
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.CursorLeft = Console.WindowWidth / 3;
+                string username = Console.ReadLine().ToLower();
+                if (username == "menu")
                 {
                     Console.Clear();
-                    DrawMenu();
+                    Main();
+                }
+                Regex regex = new Regex("^(?!.*[_].*[_])[A-Za-z0-9_]{3,26}$");
+
+                if (regex.IsMatch(username))
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (usernameIsAddedText.Length / 2)) + "}",
+                        usernameIsAddedText);
+                    Console.Clear();
+                    return username;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (enterAgainText.Length / 2)) + "}",
+                        enterAgainText);
                 }
             }
-        }
 
+        }
+        private static void PlayGame(int level)
+        {
+            //The method returns the score
+            matrixForGame = LoadLevel(level);
+            bool clearedAllBricks = false;
+            Ball ball = new Ball(matrixForGame.GetLength(0) - 1, matrixForGame.GetLength(1) / 2);
+            int boardRow = matrixForGame.GetLength(0) - 1;
+            int boardCol = matrixForGame.GetLength(1) / 2;
+            Board board = new Board(boardRow, boardCol);
+            while (true)
+            {
+                if (lives < 1)
+                {
+                    lives = 3;
+                    AskRetry();
+                }
+                Console.Clear();
+                PrintFrame(ball, board);
+                Update(ball, board);
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo key = Console.ReadKey();
+                    switch (key.Key)
+                    {
+
+                        case ConsoleKey.LeftArrow:
+                            if (board.Col >= 2)
+                            {
+                                board.Col--;
+                            }
+                            break;
+                        case ConsoleKey.RightArrow:
+                            if (board.Col + board.Size < matrixForGame.GetLength(1) - 1)
+                            {
+                                board.Col++;
+                            }
+                            break;
+
+                        case ConsoleKey.P:
+                            {
+                                while (true)
+                                {
+                                    ConsoleKeyInfo isPause = Console.ReadKey(true);
+                                    if (isPause.Key == ConsoleKey.P)
+                                    {
+                                        break;
+                                    }
+                                    else
+                                        Console.ReadKey(true);
+                                }
+                            }
+                            break;
+                    }
+                }
+                Thread.Sleep(150);
+            }
+
+            using (StreamWriter sr = new StreamWriter(@"..\..\HighScore.txt"))
+            {
+                sr.WriteLine(score + " " + user);
+
+            }
+            if (clearedAllBricks)
+            {
+                PlayGame(level + 1);
+            }
+
+        }
+        private static GameObject[,] LoadLevel(int level)
+        {
+            switch (level)
+            {
+                //Each case is a single level with bricks in a matrix
+                case 1:
+                    GameObject[,] matrix =
+                    {{ new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling()},
+                        { new Wall(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new Wall()},
+                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
+                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
+                    //{new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
+                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
+                    {new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
+                    { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
+                    { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
+                       { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
+                    { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
+                    { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
+                    { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
+
+                    };
+                    return matrix;
+                    //Implement the levels in each case (matrix)
+            }
+            //Return the matrix with the bicks
+            return new GameObject[0, 0];
+        }
         private static void GameTitle()
         {
             string titleOfTheGame = @"           ______  ______  ______  ______  ______  ______    __      _  
@@ -209,14 +328,6 @@ namespace Popcorn
                 DrawMenu();
             }
         }
-        
-        private static void NewGame()
-        {
-            user = GetUserName();
-            //TODO: Write a method to print the current score and after pressing enter, to clear
-            PlayGame(1);
-        }
-
         private static void AskRetry()
         {
             GameTitle();
@@ -246,75 +357,6 @@ namespace Popcorn
                 }
             }
         }
-
-        private static void PlayGame(int level)
-        {
-            //The method returns the score
-            matrixForGame = LoadLevel(level);
-            bool clearedAllBricks = false;
-            Ball ball = new Ball(matrixForGame.GetLength(0) - 1, matrixForGame.GetLength(1) / 2);
-            int boardRow = matrixForGame.GetLength(0) - 1;
-            int boardCol = matrixForGame.GetLength(1) / 2;
-            Board board = new Board(boardRow, boardCol);
-            while (true)
-            {
-                if (lives<1)
-                {
-                    lives = 3;
-                    AskRetry();
-                }
-                Console.Clear();
-                PrintFrame(ball, board);
-                Update(ball, board);
-                if (Console.KeyAvailable)
-                {
-                    ConsoleKeyInfo key = Console.ReadKey();
-                    switch (key.Key)
-                    {
-
-                        case ConsoleKey.LeftArrow:
-                            if (board.Col >= 2)
-                            {
-                                board.Col--;
-                            }
-                            break;
-                        case ConsoleKey.RightArrow:
-                            if (board.Col + board.Size < matrixForGame.GetLength(1) - 1)
-                            {
-                                board.Col++;
-                            }
-                            break;
-                            
-                        case ConsoleKey.P:
-                            {
-                                while (true)
-                                {
-                                    ConsoleKeyInfo isPause = Console.ReadKey(true);
-                                    if (isPause.Key == ConsoleKey.P)
-                                    {
-                                        break;
-                                    }
-                                    else
-                                        Console.ReadKey(true);
-                                }
-                            }
-                            break;
-                    }
-                }
-               Thread.Sleep(150);
-            }
-
-            using (StreamWriter sr = new StreamWriter(@"..\..\HighScore.txt"))
-            {
-                sr.WriteLine(score + " " + user);
-               
-            }
-            if (clearedAllBricks)
-            {
-                PlayGame(level + 1);
-            }
-
-        }
         private static void Update(Ball ball, Board board)
         {
             ball.Col += ball.UpdateCol;
@@ -338,7 +380,7 @@ namespace Popcorn
                 
             }
             #endregion
-            //Colliding with bricks
+            //Colliding with bricks 
             #region
             if (matrixForGame[ball.Row, ball.Col].IsDestroyable)
             {
@@ -411,73 +453,25 @@ namespace Popcorn
 
         }
 
-        private static GameObject[,] LoadLevel(int level)
+        private static void Quit()
         {
-            switch (level)
-            {
-                //Each case is a single level with bricks in a matrix
-                case 1:
-                    GameObject[,] matrix =
-                    {{ new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling()},
-                        { new Wall(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new Wall()},
-                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
-                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
-                    //{new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
-                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
-                    {new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
-                    { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
-                    { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
-                       { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
-                    { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
-                    { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
-                    { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
 
-                    };
-                    return matrix;
-                    //Implement the levels in each case (matrix)
-            }
-            //Return the matrix with the bicks
-            return new GameObject[0, 0];
-        }
-
-        private static string GetUserName()
-        {
+            string quitQuestionStr = "Are you sure you want to quit? Y/N?";
             GameTitle();
-            string enterNameText = "Please enter your username: ";
-            string allowedCharsText = "Allowed characters: (A-Z a-z 0-9 _)";
-            string enterAgainText = "Incorrect username, please enter again";
-            string usernameIsAddedText = "Username is added";
-            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (enterNameText.Length / 2)) + "}", enterNameText);
-            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (allowedCharsText.Length / 2)) + "}", allowedCharsText);
-            Console.WriteLine();
+            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (quitQuestionStr.Length / 2)) + "}", quitQuestionStr);
             while (true)
             {
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.CursorLeft = Console.WindowWidth / 3;
-                string username = Console.ReadLine().ToLower();
-                if (username == "menu")
+                ConsoleKeyInfo result = Console.ReadKey(true);
+                if ((result.KeyChar == 'Y') || (result.KeyChar == 'y'))
+                {
+                    Process.GetCurrentProcess().Kill();
+                }
+                else if ((result.KeyChar == 'N') || (result.KeyChar == 'n'))
                 {
                     Console.Clear();
-                    Main();
-                }
-                Regex regex = new Regex("^(?!.*[_].*[_])[A-Za-z0-9_]{3,26}$");
-
-                if (regex.IsMatch(username))
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (usernameIsAddedText.Length / 2)) + "}",
-                        usernameIsAddedText);
-                    Console.Clear();
-                    return username;
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (enterAgainText.Length / 2)) + "}",
-                        enterAgainText);
+                    DrawMenu();
                 }
             }
-
         }
     }
 }
