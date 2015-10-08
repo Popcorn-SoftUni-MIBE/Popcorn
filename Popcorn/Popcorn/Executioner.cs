@@ -91,16 +91,10 @@ namespace Popcorn
                             Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (instructionsText.Length / 2)) + "}", instructionsText);
                             Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (quit.Length / 2)) + "}", "-> " + quit);
                         }
-                        {
-
-                        }
                         break;
                 }
-
-
                 enter = Console.ReadKey();
                 Console.Clear();
-
             }
             switch (counter)
             {
@@ -121,7 +115,6 @@ namespace Popcorn
         private static void NewGame()
         {
             user = GetUserName();
-            //TODO: Write a method to print the current score and after pressing enter, to clear
             PlayGame(1);
         }
 
@@ -241,16 +234,16 @@ namespace Popcorn
                             {
                                 while (true)
                                 {
-                                    ConsoleKeyInfo isPause = Console.ReadKey(true);
+                                ConsoleKeyInfo isPause = Console.ReadKey(true);
                                     if (isPause.Key == ConsoleKey.P)
                                     {
                                         break;
                                     }
-                                    else
-                                        Console.ReadKey(true);
+                                    Console.ReadKey(true);
                                 }
                             }
                             break;
+
                         case ConsoleKey.Escape:
                             {
                                 Console.Clear();
@@ -286,10 +279,6 @@ namespace Popcorn
             {
                 AskRetry();
             }
-
-
-
-
         }
         private static GameObject[,] LoadLevel(int level)
         {
