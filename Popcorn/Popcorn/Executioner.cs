@@ -124,6 +124,25 @@ namespace Popcorn
             //TODO: Write a method to print the current score and after pressing enter, to clear
             PlayGame(1);
         }
+
+        private static void BackToMenu()
+        {
+            ConsoleKeyInfo enter = Console.ReadKey();
+
+            if (enter.Key == ConsoleKey.Enter)
+            {
+                Console.Clear();
+                Console.Beep(4000, 200);
+                DrawMenu();
+            }
+            else if (enter.Key == ConsoleKey.Enter)
+            {
+                Console.Clear();
+                Console.Beep(4000, 200);
+                DrawMenu();
+            }
+        }
+
         private static string GetUserName()
         {
             GameTitle();
@@ -250,6 +269,12 @@ namespace Popcorn
                                 }
                             }
                             break;
+                        case ConsoleKey.Escape:
+                            {
+                                Console.Clear();
+                                DrawMenu();
+                            }
+                            break;
                     }
                 }
 
@@ -373,7 +398,13 @@ namespace Popcorn
                 Console.Beep(4000, 200);
                 DrawMenu();
             }
-            
+            else if (enter.Key == ConsoleKey.Escape)
+            {
+                Console.Clear();
+                Console.Beep(4000, 200);
+                DrawMenu();
+            }
+
         }
 
         private static void GetHighScore()
@@ -402,7 +433,7 @@ namespace Popcorn
                 counter++;
                 Console.Write("{0," + Console.WindowWidth / 2.5 + "} | ", counter);
                 Console.WriteLine("{0} {1}", item.Score, item.Name);
-                if (counter >= 10)
+                if (counter >= 5)
                 {
                     break;
                 }
@@ -410,6 +441,11 @@ namespace Popcorn
             ConsoleKeyInfo enter = Console.ReadKey();
 
             if (enter.Key == ConsoleKey.Enter)
+            {
+                Console.Clear();
+                DrawMenu();
+            }
+            else if (enter.Key == ConsoleKey.Escape)
             {
                 Console.Clear();
                 DrawMenu();
@@ -432,6 +468,11 @@ namespace Popcorn
                     break;
                 }
                 else if (key.Key == ConsoleKey.N)
+                {
+                    Console.Clear();
+                    DrawMenu();
+                }
+                else if (key.Key == ConsoleKey.Escape)
                 {
                     Console.Clear();
                     DrawMenu();
@@ -555,19 +596,33 @@ namespace Popcorn
             Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (quitQuestionStr.Length / 2)) + "}", quitQuestionStr);
             while (true)
             {
-                ConsoleKeyInfo result = Console.ReadKey(true);
-                if ((result.KeyChar == 'Y') || (result.KeyChar == 'y'))
+                ConsoleKeyInfo key = Console.ReadKey(true);
+                if (key.Key == ConsoleKey.Y)
                 {
-                    Console.Beep(4000, 200);
-                    Process.GetCurrentProcess().Kill();
+                    lives = 3;
+                    score = 0;
+                    Console.Clear();
+                    NewGame();
+                    break;
                 }
-                else if ((result.KeyChar == 'N') || (result.KeyChar == 'n'))
+                else if (key.Key == ConsoleKey.N)
                 {
                     Console.Clear();
-                    Console.Beep(4000, 200);
                     DrawMenu();
+                }
+                else if (key.Key == ConsoleKey.Escape)
+                {
+                    Console.Clear();
+                    DrawMenu();
+                }
+                else
+                {
+                    Console.Clear();
+                    GameTitle();
+                    //Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (retryQ.Length / 2)) + "}", retryQ);
                 }
             }
         }
+        }
     }
-}
+
