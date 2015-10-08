@@ -104,10 +104,18 @@ namespace Popcorn
             }
             switch (counter)
             {
-                case 1: NewGame(); break;
-                case 2: GetHighScore(); break;
-                case 3: DrawControls(); break;
-                case 4: Quit(); break;
+                case 1:
+                    Console.Beep(4000, 200);
+                    NewGame(); break;
+                case 2:
+                    Console.Beep(4000, 200);
+                    GetHighScore(); break;
+                case 3:
+                    Console.Beep(4000, 200);
+                    DrawControls(); break;
+                case 4:
+                    Console.Beep(4000, 200);
+                    Quit(); break;
             }
         }
         private static void NewGame()
@@ -362,8 +370,10 @@ namespace Popcorn
             if (enter.Key == ConsoleKey.Enter)
             {
                 Console.Clear();
+                Console.Beep(4000, 200);
                 DrawMenu();
             }
+            
         }
 
         private static void GetHighScore()
@@ -520,8 +530,15 @@ namespace Popcorn
                 }
                 Console.WriteLine();
             }
-            Console.WriteLine("Score: {0}", score);
-            Console.WriteLine("Lives: {0}", lives);
+            Console.WriteLine("  --------------------------------------------------------");
+            Console.WriteLine("    {0," + ((Console.WindowWidth / 2)) + "}", "Hello " + user + ", Good Luck! :)");
+
+            Console.WriteLine(@"                  _________________________
+                 //                       \\
+                //       Lives = {1}         \\
+               //                           \\
+              //         Score = {0:000}         \\
+             //_______________________________\\ ", score, lives);
             for (int i = 0; i < board.Size; i++)
             {
                 matrixForGame[board.Row, board.Col + i] = new EmptyBlock();
@@ -541,11 +558,13 @@ namespace Popcorn
                 ConsoleKeyInfo result = Console.ReadKey(true);
                 if ((result.KeyChar == 'Y') || (result.KeyChar == 'y'))
                 {
+                    Console.Beep(4000, 200);
                     Process.GetCurrentProcess().Kill();
                 }
                 else if ((result.KeyChar == 'N') || (result.KeyChar == 'n'))
                 {
                     Console.Clear();
+                    Console.Beep(4000, 200);
                     DrawMenu();
                 }
             }
