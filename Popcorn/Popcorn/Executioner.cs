@@ -165,7 +165,28 @@ namespace Popcorn
             {
                 if (lives < 1)
                 {
+                    //Read all the users 
+                    List<User> users = new List<User>();
+                    users.Add(new User(name, score));
+                    using (StreamReader scoreReader = new StreamReader(@"..\..\HighScore.txt"))
+                    {
+                        string lineRead = scoreReader.ReadLine();
+                        while (!string.IsNullOrEmpty(lineRead))
+                        {
+                            users.Add(User.ParseUser(lineRead));
+                        }
+                    }
+                    //Write the current user
+                    using (StreamWriter sr = new StreamWriter(@"..\..\HighScore.txt"))
+                    {
+                        foreach (var userToWrite in users)
+                        {
+                            sr.WriteLine(userToWrite.ToString());
+                        }
+                    }
+
                     lives = 3;
+                    score = 0;
                     AskRetry();
                 }
                 Console.Clear();
@@ -209,11 +230,7 @@ namespace Popcorn
                 Thread.Sleep(150);
             }
 
-            using (StreamWriter sr = new StreamWriter(@"..\..\HighScore.txt"))
-            {
-                sr.WriteLine(score + " " + user);
-
-            }
+            
             if (clearedAllBricks)
             {
                 PlayGame(level + 1);
