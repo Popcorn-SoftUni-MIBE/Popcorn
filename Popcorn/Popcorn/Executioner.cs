@@ -15,13 +15,16 @@ namespace Popcorn
     {
         static int lives = 3;
         static GameObject[,] matrixForGame;
+        static readonly int MAX_BALL_BOARD_HITS_BEFORE_BRICKS_DOWN = 7;
         static int score = 0;
+        static int ballBoardHits = 0;   
         static string user;
         static void Main()
         {
             Console.CursorVisible = false;
             DrawMenu();
         }
+        
 
         private static void DrawMenu()
         {
@@ -39,7 +42,7 @@ namespace Popcorn
                 {
                     counter--;
                 }
-                
+
                 GameTitle();
                 string instructionsText = "INSTRUCTIONS";
                 string newGame = "NEW GAME";
@@ -72,24 +75,24 @@ namespace Popcorn
                         Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (instructionsText.Length / 2)) + "}", instructionsText);
                         Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (quit.Length / 2)) + "}", "-> " + quit); break;
                     default:
-                        if (counter==5)
+                        if (counter == 5)
                         {
                             counter = 1;
                             Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (newGame.Length / 2)) + "}", "-> " + newGame);
                             Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (highScore.Length / 2)) + "}", highScore);
                             Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (instructionsText.Length / 2)) + "}", instructionsText);
-                            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (quit.Length / 2)) + "}", quit); 
+                            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (quit.Length / 2)) + "}", quit);
                         }
-                        else if (counter==0)
+                        else if (counter == 0)
                         {
                             counter = 4;
-                            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (newGame.Length / 2)) + "}",  newGame);
+                            Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (newGame.Length / 2)) + "}", newGame);
                             Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (highScore.Length / 2)) + "}", highScore);
                             Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (instructionsText.Length / 2)) + "}", instructionsText);
                             Console.WriteLine("{0," + ((Console.WindowWidth / 2) + (quit.Length / 2)) + "}", "-> " + quit);
                         }
                         {
-                            
+
                         }
                         break;
                 }
@@ -156,13 +159,24 @@ namespace Popcorn
         {
             //The method returns the score
             matrixForGame = LoadLevel(level);
-            bool clearedAllBricks = false;
             Ball ball = new Ball(matrixForGame.GetLength(0) - 1, matrixForGame.GetLength(1) / 2);
             int boardRow = matrixForGame.GetLength(0) - 1;
             int boardCol = matrixForGame.GetLength(1) / 2;
+            bool allBricksCleared = false;
             Board board = new Board(boardRow, boardCol);
             while (true)
             {
+                if (ballBoardHits >= MAX_BALL_BOARD_HITS_BEFORE_BRICKS_DOWN)
+                {
+                    for (int row = matrixForGame.GetLength(0)-1; row > 1; row--)
+                    {
+                        for (int col = 1; col < matrixForGame.GetLength(1)-1; col++)
+                        {
+                            matrixForGame[row, col] = matrixForGame[row - 1, col];
+                        }
+                    }
+                    ballBoardHits = 0;
+                }
                 if (lives < 1)
                 {
                     //Read all the users 
@@ -189,7 +203,8 @@ namespace Popcorn
 
                     lives = 3;
                     score = 0;
-                    AskRetry();
+                    break;
+
                 }
                 Console.Clear();
                 PrintFrame(ball, board);
@@ -229,14 +244,36 @@ namespace Popcorn
                             break;
                     }
                 }
+
+                allBricksCleared = true;
+                for (int row = 0; row < matrixForGame.GetLength(0); row++)
+                {
+                    for (int col = 0; col < matrixForGame.GetLength(1); col++)
+                    {
+                        if (matrixForGame[row, col].IsDestroyable)
+                        {
+                            allBricksCleared = false;
+                            break;
+                        }
+                    }
+                }
+                if (allBricksCleared)
+                {
+                    break;
+                }
                 Thread.Sleep(150);
             }
-
-            
-            if (clearedAllBricks)
+            if (allBricksCleared)
             {
                 PlayGame(level + 1);
             }
+            else
+            {
+                AskRetry();
+            }
+
+
+
 
         }
         private static GameObject[,] LoadLevel(int level)
@@ -245,23 +282,43 @@ namespace Popcorn
             {
                 //Each case is a single level with bricks in a matrix
                 case 1:
-                    GameObject[,] matrix =
+                    return new GameObject[,]
                     {{ new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling()},
-                        { new Wall(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new Wall()},
-                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
-                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
+                    { new Wall(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new Wall()},
+                    {new Wall(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Wall()},
+                    {new Wall(), new Brick(), new SpecialBonusBrick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Wall()},
                     //{new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
-                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
+                    {new Wall(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
                     {new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
                     { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
                     { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
-                       { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
+                    { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
+                    { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
+                    { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
+                    { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
+                    };
+
+                case 2:
+                    lives++;
+                    return new GameObject[,]
+                    {{ new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling(), new Ceiling()},
+                    { new Wall(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new EmptyBlock(), new Wall()},
+                    {new Wall(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
+                    {new Wall(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
+                    {new Wall(), new Brick(), new Brick(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
+                    {new Wall(), new Brick(), new Brick(), new SpecialBonusBrick(), new Brick(), new SpecialBonusBrick(), new SpecialBonusBrick(), new Brick(), new Brick(), new Brick(), new Brick(), new Wall()},
+                    {new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
+                    { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
+                    { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
+                    { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
                     { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
                     { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
                     { new Wall(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new EmptyBlock(),new Wall() },
 
                     };
-                    return matrix;
+
+
+
                     //Implement the levels in each case (matrix)
             }
             //Return the matrix with the bicks
@@ -284,7 +341,7 @@ namespace Popcorn
         }
         private static void DrawControls()
         {
-            
+
             GameTitle();
             string instrStr = "Instructions:";
             string leftArrowKey = @"Left Arrow Key""<-"": Move pad to the left.";
@@ -388,7 +445,7 @@ namespace Popcorn
             {
                 ball.UpdateCol *= (-1);
                 ball.Col += ball.UpdateCol;
-                
+
             }
             #endregion
             //Colliding with ceiling 
@@ -397,7 +454,7 @@ namespace Popcorn
             {
                 ball.UpdateRow *= -1;
                 ball.Row += ball.UpdateRow;
-                
+
             }
             #endregion
             //Colliding with bricks 
@@ -407,12 +464,12 @@ namespace Popcorn
                 //TO DO.. Implement Destroy
                 if (matrixForGame[ball.Row, ball.Col] is Brick)
                 {
-                    Console.Beep(3000,200);
+                    //Console.Beep(3000,200);
                     score += 5;
                 }
                 if (matrixForGame[ball.Row, ball.Col] is SpecialBonusBrick)
                 {
-                    Console.Beep(3000, 300);
+                    //Console.Beep(3000, 300);
                     score += 10;
                 }
                 matrixForGame[ball.Row, ball.Col] = new EmptyBlock();
@@ -427,13 +484,13 @@ namespace Popcorn
             {
                 ball.UpdateRow *= -1;
                 ball.Row += ball.UpdateRow;
-                
+                ballBoardHits++;
             }
             #endregion
             if (ball.Row >= matrixForGame.GetLength(0) - 1)
             {
                 lives--;
-                Console.Beep(658, 1250); 
+                // Console.Beep(658, 1250); 
 
                 ball.Row = matrixForGame.GetLength(0) - 1;
                 ball.Col = matrixForGame.GetLength(1) / 2;
@@ -443,7 +500,7 @@ namespace Popcorn
                 Console.Clear();
                 Thread.Sleep(1000);
             }
-            
+
         }
         private static void PrintFrame(Ball ball, Board board)
         {
