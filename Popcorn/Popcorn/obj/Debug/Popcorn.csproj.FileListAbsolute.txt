@@ -50,3 +50,9 @@ C:\Users\Evgeni\Desktop\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.pdb
 C:\Users\Evgeni\Desktop\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.exe
 C:\Users\Evgeni\Desktop\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.pdb
 C:\Users\Evgeni\Desktop\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.csprojResolveAssemblyReference.cache
+C:\Users\Ivan\Documents\GitHub\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.exe.config
+C:\Users\Ivan\Documents\GitHub\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.exe
+C:\Users\Ivan\Documents\GitHub\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.pdb
+C:\Users\Ivan\Documents\GitHub\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.exe
+C:\Users\Ivan\Documents\GitHub\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.pdb
+C:\Users\Ivan\Documents\GitHub\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.csprojResolveAssemblyReference.cache
