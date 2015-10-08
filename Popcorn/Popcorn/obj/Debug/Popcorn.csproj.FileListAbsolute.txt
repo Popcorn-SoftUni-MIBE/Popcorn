@@ -44,3 +44,9 @@ E:\bojo\Fundamentals\Adv C#- Team project\Popcorn\Popcorn\Popcorn\obj\Debug\Popc
 E:\bojo\Fundamentals\Adv C#- Team project\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.exe
 E:\bojo\Fundamentals\Adv C#- Team project\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.pdb
 E:\bojo\Fundamentals\Adv C#- Team project\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.csprojResolveAssemblyReference.cache
+C:\Users\Evgeni\Desktop\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.exe.config
+C:\Users\Evgeni\Desktop\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.exe
+C:\Users\Evgeni\Desktop\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.pdb
+C:\Users\Evgeni\Desktop\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.exe
+C:\Users\Evgeni\Desktop\Popcorn\Popcorn\Popcorn\bin\Debug\Popcorn.pdb
+C:\Users\Evgeni\Desktop\Popcorn\Popcorn\Popcorn\obj\Debug\Popcorn.csprojResolveAssemblyReference.cache

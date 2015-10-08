@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 170 sasho
+=======
+5 dasdddas
+>>>>>>> origin/master
