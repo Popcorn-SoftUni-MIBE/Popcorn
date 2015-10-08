@@ -13,7 +13,7 @@ namespace Popcorn
 {
     class Executioner
     {
-        static int lives = 1;
+        static int lives = 3;
         static GameObject[,] matrixForGame;
         static int score = 0;
         static string user;
@@ -167,13 +167,14 @@ namespace Popcorn
                 {
                     //Read all the users 
                     List<User> users = new List<User>();
-                    users.Add(new User(name, score));
+                    users.Add(new User(user, score));
                     using (StreamReader scoreReader = new StreamReader(@"..\..\HighScore.txt"))
                     {
                         string lineRead = scoreReader.ReadLine();
                         while (!string.IsNullOrEmpty(lineRead))
                         {
                             users.Add(User.ParseUser(lineRead));
+                            lineRead = scoreReader.ReadLine();
                         }
                     }
                     //Write the current user
@@ -184,6 +185,7 @@ namespace Popcorn
                             sr.WriteLine(userToWrite.ToString());
                         }
                     }
+                    users.Clear();
 
                     lives = 3;
                     score = 0;
@@ -310,15 +312,17 @@ namespace Popcorn
         private static void GetHighScore()
         {
             int counter = 0;
-            SortedDictionary<int, string> highScore = new SortedDictionary<int, string>();
+            SortedSet<User> highScore = new SortedSet<User>();
             string line;
-            StreamReader file = new StreamReader(@"../../HighScore.txt");
-            while ((line = file.ReadLine()) != null)
+            using (StreamReader file = new StreamReader(@"../../HighScore.txt"))
             {
-                string[] highScoreValues = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                string name = highScoreValues[1];
-                int score = int.Parse(highScoreValues[0]);
-                highScore.Add(score, name);
+                while ((line = file.ReadLine()) != null)
+                {
+                    string[] highScoreValues = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    string name = highScoreValues[1];
+                    int score = int.Parse(highScoreValues[0]);
+                    highScore.Add(new User(name, score));
+                }
             }
             GameTitle();
             string highScoreStr = "HIGH SCORE";
@@ -330,12 +334,11 @@ namespace Popcorn
             {
                 counter++;
                 Console.Write("{0," + Console.WindowWidth / 2.5 + "} | ", counter);
-                Console.WriteLine("{0} {1}", item.Key, item.Value);
+                Console.WriteLine("{0} {1}", item.Score, item.Name);
                 if (counter >= 10)
                 {
                     break;
                 }
-
             }
             ConsoleKeyInfo enter = Console.ReadKey();
 
